@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Diagnostics</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .panel {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+      max-height: 300px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, button {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .success {
+      color: #4CAF50;
+    }
+    .error {
+      color: #f44336;
+    }
+    .result {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>API Diagnostics Tool</h1>
+  <p>Use this tool to debug API connection issues between your React frontend and Laravel backend.</p>
+  
+  <div class="container">
+    <div class="panel">
+      <h2>Authentication</h2>
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+      </div>
+      <button onclick="testLogin()">Login</button>
+      <div id="login-result" class="result"></div>
+      
+      <h3>Current Auth Status</h3>
+      <button onclick="checkAuthStatus()">Check Auth Status</button>
+      <div id="auth-status" class="result"></div>
+      
+      <h3>Logout</h3>
+      <button onclick="testLogout()">Logout</button>
+      <div id="logout-result" class="result"></div>
+    </div>
+    
+    <div class="panel">
+      <h2>API Configuration</h2>
+      <div class="form-group">
+        <label for="base-url">API Base URL:</label>
+        <input type="text" id="base-url" value="http://localhost:8000" placeholder="e.g., http://localhost:8000">
+      </div>
+      <div class="form-group">
+        <label for="endpoint-path">API Endpoint:</label>
+        <input type="text" id="endpoint-path" value="/api/trips" placeholder="e.g., /api/trips">
+      </div>
+      <button onclick="testEndpoint()">Test Endpoint</button>
+      <div id="endpoint-result" class="result"></div>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <h2>API Tests</h2>
+    <button onclick="runFullTest()">Run Full Test Suite</button>
+    <div id="test-results" class="result"></div>
+  </div>
+
+  <script>
+    // Helper function to display results
+    function displayResult(elementId, success, message, data = null) {
+      const element = document.getElementById(elementId);
+      element.innerHTML = `
+        <div class="${success ? 'success' : 'error'}">
+          <p><strong>${success ? 'Success' : 'Error'}:</strong> ${message}</p>
+          ${data ? `<pre>${JSON.stringify(data, null, 2)}</pre>` : ''}
+        </div>
+      `;
+    }
+    
+    // Helper function to get the token
+    function getToken() {
+      return localStorage.getItem('token');
+    }
+    
+    // Test login function
+    async function testLogin() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const resultElement = document.getElementById('login-result');
+      
+      if (!email || !password) {
+        displayResult('login-result', false, 'Please enter both email and password');
+        return;
+      }
+      
+      try {
+        resultElement.innerHTML = '<p>Attempting login...</p>';
+        const baseUrl = document.getElementById('base-url').value;
+        
+        const response = await fetch(`${baseUrl}/api/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          displayResult('login-result', true, 'Login successful', data);
+          // Update auth status
+          checkAuthStatus();
+        } else {
+          displayResult('login-result', false, 'Login failed', data);
+        }
+      } catch (error) {
+        displayResult('login-result', false, `Login error: ${error.message}`);
+      }
+    }
+    
+    // Check authentication status
+    async function checkAuthStatus() {
+      const token = getToken();
+      const resultElement = document.getElementById('auth-status');
+      
+      if (!token) {
+        displayResult('auth-status', false, 'No authentication token found');
+        return;
+      }
+      
+      try {
+        resultElement.innerHTML = '<p>Checking authentication status...</p>';
+        const baseUrl = document.getElementById('base-url').value;
+        
+        const response = await fetch(`${baseUrl}/api/user`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          displayResult('auth-status', true, 'Authenticated', data);
+        } else {
+          displayResult('auth-status', false, 'Authentication failed', data);
+        }
+      } catch (error) {
+        displayResult('auth-status', false, `Error checking auth: ${error.message}`);
+      }
+    }
+    
+    // Test logout
+    async function testLogout() {
+      const token = getToken();
+      const resultElement = document.getElementById('logout-result');
+      
+      if (!token) {
+        displayResult('logout-result', false, 'No authentication token found');
+        return;
+      }
+      
+      try {
+        resultElement.innerHTML = '<p>Attempting logout...</p>';
+        const baseUrl = document.getElementById('base-url').value;
+        
+        const response = await fetch(`${baseUrl}/api/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          localStorage.removeItem('token');
+          displayResult('logout-result', true, 'Logout successful', data);
+          // Update auth status
+          checkAuthStatus();
+        } else {
+          displayResult('logout-result', false, 'Logout failed', data);
+        }
+      } catch (error) {
+        displayResult('logout-result', false, `Logout error: ${error.message}`);
+      }
+    }
+    
+    // Test an arbitrary endpoint
+    async function testEndpoint() {
+      const token = getToken();
+      const baseUrl = document.getElementById('base-url').value;
+      const endpoint = document.getElementById('endpoint-path').value;
+      const resultElement = document.getElementById('endpoint-result');
+      
+      try {
+        resultElement.innerHTML = '<p>Testing endpoint...</p>';
+        
+        const headers = {
+          'Accept': 'application/json'
+        };
+        
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+        
+        const response = await fetch(`${baseUrl}${endpoint}`, {
+          headers
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          displayResult('endpoint-result', true, `Successfully accessed ${endpoint}`, data);
+        } else {
+          displayResult('endpoint-result', false, `Failed to access ${endpoint}`, data);
+        }
+      } catch (error) {
+        displayResult('endpoint-result', false, `Error testing endpoint: ${error.message}`);
+      }
+    }
+    
+    // Run a full test suite
+    async function runFullTest() {
+      const resultElement = document.getElementById('test-results');
+      resultElement.innerHTML = '<p>Running tests...</p>';
+      
+      const baseUrl = document.getElementById('base-url').value;
+      const token = getToken();
+      
+      const endpoints = [
+        { name: 'Public Trips', path: '/api/public/trips' },
+        { name: 'User Info', path: '/api/user', requiresAuth: true },
+        { name: 'Trips', path: '/api/trips', requiresAuth: true },
+        { name: 'My Requests', path: '/api/my-requests', requiresAuth: true }
+      ];
+      
+      let results = '<h3>Test Results</h3>';
+      
+      for (const endpoint of endpoints) {
+        try {
+          const headers = {
+            'Accept': 'application/json'
+          };
+          
+          if (endpoint.requiresAuth && token) {
+            headers['Authorization'] = `Bearer ${token}`;
+          }
+          
+          const response = await fetch(`${baseUrl}${endpoint.path}`, {
+            headers
+          });
+          
+          let data;
+          try {
+            data = await response.json();
+          } catch (e) {
+            data = 'Invalid JSON response';
+          }
+          
+          const success = response.ok;
+          
+          results += `
+            <div class="${success ? 'success' : 'error'}">
+              <p><strong>${endpoint.name} (${endpoint.path}):</strong> ${success ? 'Success' : 'Failed'} (Status: ${response.status})</p>
+              <pre>${typeof data === 'object' ? JSON.stringify(data, null, 2) : data}</pre>
+            </div>
+          `;
+        } catch (error) {
+          results += `
+            <div class="error">
+              <p><strong>${endpoint.name} (${endpoint.path}):</strong> Error - ${error.message}</p>
+            </div>
+          `;
+        }
+      }
+      
+      resultElement.innerHTML = results;
+    }
+    
+    // Check auth status on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthStatus();
+    });
+  </script>
+</body>
+</html> 

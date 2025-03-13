@@ -1,0 +1,913 @@
+/* Trips Page Styles */
+
+.trips,
+.my-trips {
+  &-container {
+    padding: $spacing-lg;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    @include respond-to(sm) {
+      padding: $spacing-xl;
+    }
+  }
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    @include respond-to(sm) {
+      margin-bottom: $spacing-xl;
+    }
+  }
+  
+  &-title {
+    font-size: 1.75rem;
+    font-weight: $font-weight-bold;
+    color: $dark-color;
+    margin: 0;
+  }
+  
+  &-search-bar {
+    display: flex;
+    margin-bottom: $spacing-md;
+    gap: $spacing-md;
+    
+    .search-input-container {
+      position: relative;
+      flex: 1;
+      
+      .search-icon {
+        position: absolute;
+        left: $spacing-sm;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $gray-500;
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: $spacing-sm $spacing-sm $spacing-sm $spacing-xl;
+        border: 1px solid $gray-300;
+        border-radius: $border-radius;
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
+        }
+      }
+    }
+  }
+  
+  &-filters {
+    background-color: $gray-100;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    margin-bottom: $spacing-md;
+    
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-md;
+      margin-bottom: $spacing-md;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+      
+      label {
+        display: block;
+        margin-bottom: $spacing-xs;
+        font-weight: $font-weight-bold;
+        color: $gray-700;
+      }
+      
+      .filter-input {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 1px solid $gray-300;
+        border-radius: $border-radius;
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
+        }
+      }
+    }
+  }
+  
+  &-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    
+    .toolbar-filters {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: $spacing-xs;
+      gap: $spacing-xs;
+      
+      .filter-btn {
+        background: none;
+        border: 1px solid $gray-300;
+        border-radius: $border-radius;
+        padding: $spacing-xs $spacing-sm;
+        color: $gray-700;
+        cursor: pointer;
+        white-space: nowrap;
+        
+        &:hover {
+          background-color: $gray-100;
+        }
+        
+        &.active {
+          background-color: $primary-color;
+          color: $white;
+          border-color: $primary-color;
+        }
+      }
+    }
+  }
+  
+  &-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+  }
+  
+  &-empty {
+    text-align: center;
+    padding: $spacing-xl 0;
+    
+    h3 {
+      margin-bottom: $spacing-sm;
+      color: $gray-700;
+    }
+    
+    p {
+      color: $gray-600;
+      margin-bottom: $spacing-lg;
+    }
+  }
+}
+
+.sort-panel {
+  background-color: $gray-100;
+  padding: $spacing-md;
+  border-radius: $border-radius;
+  margin-bottom: $spacing-md;
+  
+  h4 {
+    margin-bottom: $spacing-sm;
+    font-size: 1rem;
+    color: $gray-700;
+  }
+  
+  .sort-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    
+    .sort-option {
+      background: none;
+      border: 1px solid $gray-300;
+      border-radius: $border-radius;
+      padding: $spacing-xs $spacing-sm;
+      color: $gray-700;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: $gray-200;
+      }
+      
+      &.active {
+        background-color: $primary-color;
+        color: $white;
+        border-color: $primary-color;
+      }
+      
+      svg {
+        margin-right: $spacing-xs;
+      }
+    }
+  }
+}
+
+.trip-card {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  position: relative;
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-md;
+    border-bottom: 1px solid $gray-200;
+  }
+  
+  &-body {
+    padding: $spacing-md;
+  }
+  
+  &-footer {
+    padding: $spacing-md;
+    border-top: 1px solid $gray-200;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-sm;
+  }
+  
+  .trip-traveler {
+    display: flex;
+    align-items: center;
+    
+    &-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: $spacing-sm;
+      background-color: $primary-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      font-weight: $font-weight-bold;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    &-info {
+      display: flex;
+      flex-direction: column;
+      
+      .traveler-name {
+        font-weight: $font-weight-bold;
+        color: $gray-800;
+        
+        svg {
+          margin-right: $spacing-xs;
+          color: $gray-600;
+        }
+      }
+      
+      .traveler-rating {
+        color: $gray-700;
+        font-size: $font-size-sm;
+        
+        svg {
+          color: $warning-color;
+          margin-right: $spacing-xs;
+        }
+      }
+    }
+  }
+  
+  .trip-status {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius;
+    text-transform: capitalize;
+    
+    &-upcoming {
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+    
+    &-in_progress, &-in-progress {
+      background-color: rgba($warning-color, 0.1);
+      color: $warning-color;
+    }
+    
+    &-completed {
+      background-color: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+    
+    &-cancelled {
+      background-color: rgba($danger-color, 0.1);
+      color: $danger-color;
+    }
+  }
+  
+  .trip-actions {
+    display: flex;
+    gap: $spacing-xs;
+  }
+  
+  .trip-route {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    
+    &-origin,
+    &-destination {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      
+      svg {
+        color: $primary-color;
+        margin-right: $spacing-xs;
+      }
+      
+      span {
+        font-weight: $font-weight-bold;
+      }
+    }
+    
+    &-arrow {
+      margin: 0 $spacing-sm;
+      color: $gray-500;
+      font-size: 1.25rem;
+    }
+  }
+  
+  .trip-dates {
+    margin-bottom: $spacing-md;
+    
+    .trip-date {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-xs;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      svg {
+        color: $primary-color;
+        margin-right: $spacing-xs;
+      }
+    }
+  }
+  
+  .trip-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+    
+    .trip-space,
+    .trip-requests {
+      font-size: $font-size-sm;
+      color: $gray-700;
+      
+      strong {
+        color: $dark-color;
+      }
+    }
+  }
+  
+  .trip-notes {
+    background-color: $gray-100;
+    padding: $spacing-sm;
+    border-radius: $border-radius;
+    font-size: $font-size-sm;
+    color: $gray-700;
+    margin-top: $spacing-md;
+    
+    p {
+      margin: 0;
+    }
+  }
+  
+  .delete-confirm {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($dark-color, 0.7);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &-content {
+      background-color: $white;
+      padding: $spacing-lg;
+      border-radius: $border-radius;
+      max-width: 300px;
+      text-align: center;
+      
+      .warning-icon {
+        color: $warning-color;
+        font-size: 2rem;
+        margin-bottom: $spacing-sm;
+      }
+      
+      h4 {
+        margin-bottom: $spacing-sm;
+      }
+      
+      p {
+        margin-bottom: $spacing-lg;
+      }
+      
+      .delete-actions {
+        display: flex;
+        gap: $spacing-sm;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+/* Trip Detail Styles */
+.trip-detail {
+  &-container {
+    padding: $spacing-lg;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    @include respond-to(sm) {
+      padding: $spacing-xl;
+    }
+  }
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+  }
+  
+  &-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    
+    @include respond-to(md) {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+  
+  &-main {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+  
+  &-sidebar {
+    .traveler-card {
+      background-color: $white;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      overflow: hidden;
+      
+      &-title {
+        padding: $spacing-md;
+        border-bottom: 1px solid $gray-200;
+        margin: 0;
+        font-size: 1.25rem;
+      }
+      
+      .traveler-info {
+        padding: $spacing-md;
+      }
+      
+      .traveler-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto $spacing-md;
+        background-color: $primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        font-weight: $font-weight-bold;
+        font-size: 2rem;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      .traveler-details {
+        text-align: center;
+        
+        .traveler-name {
+          margin-bottom: $spacing-xs;
+          
+          svg {
+            margin-right: $spacing-xs;
+          }
+        }
+        
+        .traveler-rating {
+          margin-bottom: $spacing-sm;
+          
+          .star-icon {
+            color: $warning-color;
+            margin-right: $spacing-xs;
+          }
+        }
+        
+        .traveler-verified {
+          display: inline-block;
+          padding: $spacing-xs $spacing-sm;
+          background-color: rgba($success-color, 0.1);
+          color: $success-color;
+          border-radius: $border-radius;
+          font-size: $font-size-sm;
+          margin-bottom: $spacing-md;
+        }
+      }
+      
+      .traveler-contact {
+        margin-top: $spacing-md;
+        padding-top: $spacing-md;
+        border-top: 1px solid $gray-200;
+        
+        .contact-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: $spacing-sm;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          svg {
+            width: 16px;
+            margin-right: $spacing-sm;
+            color: $gray-600;
+          }
+        }
+      }
+      
+      .owner-actions {
+        padding: $spacing-md;
+        border-top: 1px solid $gray-200;
+        
+        .btn-block {
+          display: block;
+          width: 100%;
+          margin-bottom: $spacing-sm;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.trip-route-card {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $spacing-lg;
+  
+  .trip-route-title {
+    margin-bottom: $spacing-md;
+    font-size: 1.5rem;
+  }
+  
+  .trip-route {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    &-origin,
+    &-destination {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      svg {
+        font-size: 1.5rem;
+        color: $primary-color;
+        margin-bottom: $spacing-xs;
+      }
+      
+      span {
+        font-weight: $font-weight-bold;
+        text-align: center;
+      }
+    }
+    
+    &-arrow {
+      margin: 0 $spacing-md;
+      font-size: 2rem;
+      color: $gray-400;
+    }
+  }
+  
+  .trip-dates {
+    margin-bottom: $spacing-lg;
+    
+    .trip-date {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-sm;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      svg {
+        color: $primary-color;
+        margin-right: $spacing-sm;
+      }
+    }
+  }
+  
+  .trip-space {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    svg {
+      color: $primary-color;
+      margin-right: $spacing-sm;
+    }
+  }
+  
+  .trip-notes {
+    display: flex;
+    background-color: $gray-100;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    
+    svg {
+      color: $primary-color;
+      margin-right: $spacing-sm;
+      margin-top: $spacing-xs;
+    }
+    
+    .notes-content {
+      flex: 1;
+      
+      h3 {
+        font-size: 1rem;
+        margin-bottom: $spacing-xs;
+      }
+      
+      p {
+        margin: 0;
+      }
+    }
+  }
+  
+  .trip-actions {
+    margin-top: $spacing-lg;
+  }
+  
+  .trip-expired-notice {
+    margin-top: $spacing-lg;
+    padding: $spacing-md;
+    background-color: rgba($warning-color, 0.1);
+    border-radius: $border-radius;
+    
+    p {
+      margin: 0;
+      color: $warning-color;
+    }
+  }
+}
+
+.request-form-card {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $spacing-lg;
+  margin-top: $spacing-lg;
+  
+  .request-form-title {
+    margin-bottom: $spacing-md;
+    font-size: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: $spacing-md;
+    
+    .form-label {
+      display: block;
+      margin-bottom: $spacing-xs;
+      font-weight: $font-weight-bold;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: $spacing-sm;
+      border: 1px solid $gray-300;
+      border-radius: $border-radius;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
+      }
+      
+      &.is-invalid {
+        border-color: $danger-color;
+      }
+    }
+    
+    .form-invalid-feedback {
+      color: $danger-color;
+      font-size: $font-size-sm;
+      margin-top: $spacing-xs;
+    }
+    
+    textarea.form-control {
+      resize: vertical;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+    margin-top: $spacing-lg;
+  }
+}
+
+/* Create Trip Styles */
+.create-trip {
+  &-container {
+    padding: $spacing-lg;
+    max-width: 800px;
+    margin: 0 auto;
+    
+    @include respond-to(sm) {
+      padding: $spacing-xl;
+    }
+  }
+  
+  &-header {
+    margin-bottom: $spacing-lg;
+    
+    .create-trip-title {
+      font-size: 1.75rem;
+      font-weight: $font-weight-bold;
+      color: $dark-color;
+      margin: 0;
+    }
+  }
+  
+  &-content {
+    background-color: $white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: $spacing-lg;
+  }
+  
+  &-form {
+    .form-section {
+      margin-bottom: $spacing-lg;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &-title {
+        font-size: 1.25rem;
+        margin-bottom: $spacing-md;
+        padding-bottom: $spacing-sm;
+        border-bottom: 1px solid $gray-200;
+      }
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+      margin-bottom: $spacing-md;
+      
+      @include respond-to(sm) {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: $spacing-md;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &.date-time-group {
+        @include respond-to(sm) {
+          &:nth-child(odd) {
+            grid-column: 1;
+          }
+          
+          &:nth-child(even) {
+            grid-column: 2;
+          }
+        }
+      }
+      
+      .form-label {
+        display: block;
+        margin-bottom: $spacing-xs;
+        font-weight: $font-weight-bold;
+        color: $gray-700;
+        
+        svg {
+          color: $primary-color;
+          margin-right: $spacing-xs;
+        }
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 1px solid $gray-300;
+        border-radius: $border-radius;
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
+        }
+        
+        &.is-invalid {
+          border-color: $danger-color;
+        }
+      }
+      
+      .form-invalid-feedback {
+        color: $danger-color;
+        font-size: $font-size-sm;
+        margin-top: $spacing-xs;
+      }
+      
+      textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: $spacing-md;
+      margin-top: $spacing-lg;
+      
+      @include respond-to(sm) {
+        justify-content: flex-end;
+      }
+      
+      .btn {
+        min-width: 150px;
+      }
+    }
+  }
+}
+
+// Status classes
+.status-upcoming {
+  background-color: rgba($primary-color, 0.1);
+  color: $primary-color;
+}
+
+.status-in-progress {
+  background-color: rgba($warning-color, 0.1);
+  color: $warning-color;
+}
+
+.status-completed {
+  background-color: rgba($success-color, 0.1);
+  color: $success-color;
+}
+
+.status-cancelled {
+  background-color: rgba($danger-color, 0.1);
+  color: $danger-color;
+} 

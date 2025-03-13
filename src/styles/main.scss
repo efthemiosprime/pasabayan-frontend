@@ -1,0 +1,36 @@
+/* Main SCSS File - Imports all styles */
+
+/* Base Styles */
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/animations';
+
+/* Layout Styles */
+@import 'layout/layout';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/navigation';
+@import 'layout/sidebar';
+@import 'layout/forms';
+
+/* Component Styles */
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/modals';
+@import 'components/alerts';
+@import 'components/loaders';
+
+/* Page Styles */
+@import 'pages/home';
+@import 'pages/auth';
+@import 'pages/trips';
+@import 'pages/trip-detail';
+@import 'pages/requests';
+@import 'pages/matches';
+@import 'pages/profiles';
+@import 'pages/reviews';
+
+/* Utility Styles */
+@import 'utils/helpers'; 

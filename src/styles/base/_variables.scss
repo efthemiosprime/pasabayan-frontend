@@ -1,0 +1,89 @@
+/* Variables */
+
+// Colors
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$accent-color: #f39c12;
+$dark-color: #2c3e50;
+$light-color: #ecf0f1;
+$white: #ffffff;
+$black: #000000;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// Text Colors
+$text-color: $gray-800;
+$text-muted: $gray-600;
+$light-gray: $gray-200;
+$gray-light: $gray-200;
+$border-color: $gray-300;
+
+// Alert/Status Colors
+$success-color: #2ecc71;
+$success-light: #d4edda;
+$success-dark: #155724;
+
+$danger-color: #e74c3c;
+$danger-light: #f8d7da;
+$danger-dark: #721c24;
+
+$warning-color: #f39c12;
+$warning: $warning-color;
+$warning-light: #fff3cd;
+$warning-dark: #856404;
+
+$info-color: #3498db;
+$info-light: #d1ecf1;
+$info-dark: #0c5460;
+
+// Typography
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+$font-family-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.25rem;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$line-height-base: 1.5;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+// Borders
+$border-radius-sm: 0.25rem;
+$border-radius: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-circle: 50%;
+$border-width: 1px;
+$border-width-lg: 2px;
+
+// Shadows
+$box-shadow-sm: 0 .125rem .25rem rgba($black, .075);
+$box-shadow: 0 .5rem 1rem rgba($black, .15);
+$box-shadow-lg: 0 1rem 3rem rgba($black, .175);
+
+// Transitions
+$transition-base: all .2s ease-in-out;
+$transition-slow: all .3s ease-in-out;
+$transition-fast: all .1s ease-in-out;
+
+// Breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px; 

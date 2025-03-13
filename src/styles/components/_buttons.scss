@@ -1,0 +1,127 @@
+/* Button Styles */
+
+.btn {
+  display: inline-block;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: none;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  border-radius: $border-radius;
+  @include transition;
+  cursor: pointer;
+  
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+  
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  
+  // Button sizes
+  &-sm {
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    border-radius: $border-radius-sm;
+  }
+  
+  &-lg {
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-lg;
+    border-radius: $border-radius-lg;
+  }
+  
+  // Button variants
+  &-primary {
+    @include button-variant($primary-color);
+  }
+  
+  &-secondary {
+    @include button-variant($secondary-color);
+  }
+  
+  &-accent {
+    @include button-variant($accent-color);
+  }
+  
+  &-success {
+    @include button-variant($success-color);
+  }
+  
+  &-danger {
+    @include button-variant($danger-color);
+  }
+  
+  &-warning {
+    @include button-variant($warning-color);
+  }
+  
+  &-info {
+    @include button-variant($info-color);
+  }
+  
+  &-light {
+    @include button-variant($light-color, $dark-color);
+  }
+  
+  &-dark {
+    @include button-variant($dark-color);
+  }
+  
+  // Outline buttons
+  &-outline-primary {
+    @include button-variant(transparent, $primary-color);
+    border: 1px solid $primary-color;
+    
+    &:hover, &:focus {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+  
+  &-outline-secondary {
+    @include button-variant(transparent, $secondary-color);
+    border: 1px solid $secondary-color;
+    
+    &:hover, &:focus {
+      background-color: $secondary-color;
+      color: $white;
+    }
+  }
+  
+  // Full width button
+  &-block {
+    display: block;
+    width: 100%;
+  }
+  
+  // Button with icon
+  &-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg, i {
+      margin-right: $spacing-xs;
+    }
+    
+    &-right {
+      svg, i {
+        margin-right: 0;
+        margin-left: $spacing-xs;
+      }
+    }
+  }
+  
+  // Rounded button
+  &-rounded {
+    border-radius: 50px;
+  }
+} 

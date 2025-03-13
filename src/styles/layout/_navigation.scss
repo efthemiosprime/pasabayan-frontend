@@ -1,0 +1,119 @@
+/* Navigation Styles */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  
+  &-item {
+    margin-right: $spacing-md;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  &-link {
+    display: block;
+    padding: $spacing-sm $spacing-md;
+    color: $gray-700;
+    text-decoration: none;
+    transition: $transition-base;
+    
+    &:hover, &:focus {
+      color: $primary-color;
+    }
+    
+    &.active {
+      color: $primary-color;
+      font-weight: $font-weight-bold;
+    }
+    
+    &.disabled {
+      color: $gray-500;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+  
+  // Horizontal nav
+  &-horizontal {
+    flex-direction: row;
+  }
+  
+  // Vertical nav
+  &-vertical {
+    flex-direction: column;
+    
+    .nav-item {
+      margin-right: 0;
+      margin-bottom: $spacing-sm;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  // Tabs
+  &-tabs {
+    border-bottom: 1px solid $gray-300;
+    
+    .nav-item {
+      margin-bottom: -1px;
+    }
+    
+    .nav-link {
+      border: 1px solid transparent;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      
+      &:hover, &:focus {
+        border-color: $gray-200 $gray-200 $gray-300;
+      }
+      
+      &.active {
+        color: $primary-color;
+        background-color: $white;
+        border-color: $gray-300 $gray-300 $white;
+      }
+      
+      &.disabled {
+        color: $gray-500;
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+  
+  // Pills
+  &-pills {
+    .nav-link {
+      border-radius: $border-radius;
+      
+      &.active {
+        color: $white;
+        background-color: $primary-color;
+      }
+    }
+  }
+  
+  // Justified
+  &-justified {
+    .nav-item {
+      flex-basis: 0;
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+  
+  // Fill
+  &-fill {
+    .nav-item {
+      flex: 1 1 auto;
+      text-align: center;
+    }
+  }
+} 

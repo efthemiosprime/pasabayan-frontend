@@ -1,0 +1,211 @@
+/* Form Styles */
+
+.form {
+  &-group {
+    margin-bottom: $spacing-md;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &-label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: $font-weight-bold;
+    color: $gray-700;
+  }
+  
+  &-control {
+    display: block;
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-base;
+    line-height: 1.5;
+    color: $gray-700;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $gray-300;
+    border-radius: $border-radius;
+    transition: $transition-base;
+    
+    &:focus {
+      color: $gray-700;
+      background-color: $white;
+      border-color: lighten($primary-color, 25%);
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+    }
+    
+    &::placeholder {
+      color: $gray-500;
+      opacity: 1;
+    }
+    
+    &:disabled,
+    &[readonly] {
+      background-color: $gray-200;
+      opacity: 1;
+    }
+    
+    &.is-invalid {
+      border-color: $danger-color;
+      padding-right: calc(1.5em + 0.75rem);
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right calc(0.375em + 0.1875rem) center;
+      background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      
+      &:focus {
+        border-color: $danger-color;
+        box-shadow: 0 0 0 0.2rem rgba($danger-color, 0.25);
+      }
+    }
+    
+    &.is-valid {
+      border-color: $success-color;
+      padding-right: calc(1.5em + 0.75rem);
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right calc(0.375em + 0.1875rem) center;
+      background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      
+      &:focus {
+        border-color: $success-color;
+        box-shadow: 0 0 0 0.2rem rgba($success-color, 0.25);
+      }
+    }
+  }
+  
+  textarea.form-control {
+    height: auto;
+  }
+  
+  select.form-control {
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 8px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    &:focus::-ms-value {
+      color: $gray-700;
+      background-color: $white;
+    }
+  }
+  
+  &-check {
+    position: relative;
+    display: block;
+    padding-left: 1.25rem;
+    
+    &-input {
+      position: absolute;
+      margin-top: 0.3rem;
+      margin-left: -1.25rem;
+      
+      &:checked ~ .form-check-label::before {
+        color: $white;
+        border-color: $primary-color;
+        background-color: $primary-color;
+      }
+      
+      &:focus ~ .form-check-label::before {
+        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+      }
+      
+      &:disabled ~ .form-check-label {
+        color: $gray-600;
+        
+        &::before {
+          background-color: $gray-200;
+        }
+      }
+    }
+    
+    &-label {
+      margin-bottom: 0;
+      
+      &::before {
+        position: absolute;
+        top: 0.25rem;
+        left: 0;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        pointer-events: none;
+        content: "";
+        background-color: $white;
+        border: 1px solid $gray-500;
+      }
+      
+      &::after {
+        position: absolute;
+        top: 0.25rem;
+        left: 0;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        background: no-repeat 50% / 50% 50%;
+      }
+    }
+  }
+  
+  &-text {
+    display: block;
+    margin-top: $spacing-xs;
+    font-size: $font-size-sm;
+    color: $gray-600;
+  }
+  
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -$spacing-sm;
+    margin-left: -$spacing-sm;
+    
+    > .col,
+    > [class*="col-"] {
+      padding-right: $spacing-sm;
+      padding-left: $spacing-sm;
+    }
+  }
+  
+  &-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    
+    .form-check {
+      width: 100%;
+      
+      @include respond-to(sm) {
+        display: inline-block;
+        width: auto;
+        margin-right: $spacing-md;
+        vertical-align: middle;
+      }
+    }
+  }
+  
+  // Validation messages
+  &-valid-feedback,
+  &-invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: $spacing-xs;
+    font-size: $font-size-sm;
+  }
+  
+  &-valid-feedback {
+    color: $success-color;
+  }
+  
+  &-invalid-feedback {
+    color: $danger-color;
+  }
+} 
