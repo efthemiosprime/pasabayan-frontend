@@ -1,36 +1,1487 @@
-/* Main SCSS File - Imports all styles */
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins' as *;
 
-/* Base Styles */
-@import 'base/variables';
-@import 'base/mixins';
-@import 'base/reset';
-@import 'base/typography';
-@import 'base/animations';
+// Reset & Base
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Layout Styles */
-@import 'layout/layout';
-@import 'layout/header';
-@import 'layout/footer';
-@import 'layout/navigation';
-@import 'layout/sidebar';
-@import 'layout/forms';
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-/* Component Styles */
-@import 'components/buttons';
-@import 'components/cards';
-@import 'components/modals';
-@import 'components/alerts';
-@import 'components/loaders';
+body {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-gray-700;
+  background: $color-white;
+  overflow-x: hidden;
+}
 
-/* Page Styles */
-@import 'pages/home';
-@import 'pages/auth';
-@import 'pages/trips';
-@import 'pages/trip-detail';
-@import 'pages/requests';
-@import 'pages/matches';
-@import 'pages/profiles';
-@import 'pages/reviews';
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-/* Utility Styles */
-@import 'utils/helpers'; 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// ================================
+// NAVBAR
+// ================================
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-fixed;
+  padding: $spacing-4 0;
+  transition: all $transition-base;
+  
+  &.scrolled {
+    background: rgba($color-white, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: $shadow-md;
+    padding: $spacing-3 0;
+  }
+  
+  &__container {
+    @include container;
+    @include flex-between;
+  }
+  
+  &__logo {
+    @include flex-start;
+    gap: $spacing-2;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    
+    &-icon {
+      width: 36px;
+      height: 36px;
+      color: $color-primary;
+    }
+  }
+  
+  &__toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-2;
+    
+    @include md {
+      display: none;
+    }
+    
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: $color-primary;
+      border-radius: 2px;
+      transition: all $transition-fast;
+    }
+    
+    &.active {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  }
+  
+  &__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $color-white;
+    padding: $spacing-4;
+    box-shadow: $shadow-lg;
+    flex-direction: column;
+    gap: $spacing-4;
+    
+    &.active {
+      display: flex;
+    }
+    
+    @include md {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      align-items: center;
+      gap: $spacing-8;
+      background: none;
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+  
+  &__link {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-gray-600;
+    transition: color $transition-fast;
+    
+    &:hover {
+      color: $color-primary;
+    }
+  }
+  
+  &__cta {
+    @include button-base;
+    background: $color-primary;
+    color: $color-white;
+    padding: $spacing-2 $spacing-5;
+    font-size: $font-size-sm;
+    
+    &:hover {
+      background: $color-primary-light;
+    }
+  }
+}
+
+// ================================
+// HERO
+// ================================
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: $spacing-32 0 $spacing-16;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    
+    &-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      
+      &--1 {
+        width: 600px;
+        height: 600px;
+        background: linear-gradient(135deg, rgba($color-sender, 0.3), transparent);
+        top: -200px;
+        left: -200px;
+      }
+      
+      &--2 {
+        width: 500px;
+        height: 500px;
+        background: linear-gradient(135deg, rgba($color-carrier, 0.3), transparent);
+        bottom: -100px;
+        right: -100px;
+      }
+    }
+  }
+  
+  &__container {
+    @include container;
+    display: grid;
+    gap: $spacing-12;
+    align-items: center;
+    
+    @include lg {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacing-16;
+    }
+  }
+  
+  &__content {
+    text-align: center;
+    
+    @include lg {
+      text-align: left;
+    }
+  }
+  
+  &__title {
+    @include heading-1;
+    color: $color-primary;
+    margin-bottom: $spacing-6;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    color: $color-gray-600;
+    margin-bottom: $spacing-8;
+    max-width: 540px;
+    
+    @include lg {
+      margin-left: 0;
+    }
+  }
+  
+  &__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    
+    @include sm {
+      flex-direction: row;
+      justify-content: center;
+      
+      @include lg {
+        justify-content: flex-start;
+      }
+    }
+  }
+  
+  &__visual {
+    display: flex;
+    justify-content: center;
+    
+    @include lg {
+      justify-content: flex-end;
+    }
+  }
+  
+  &__illustration {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &__side {
+    position: absolute;
+    width: 150px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    
+    &--sender {
+      left: 0;
+      animation: float-sender 4s ease-in-out infinite;
+    }
+    
+    &--carrier {
+      right: 0;
+      animation: float-carrier 4s ease-in-out infinite 0.5s;
+    }
+  }
+  
+  &__person {
+    position: relative;
+    width: 60px;
+    height: 80px;
+    
+    &-body {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 50px;
+      border-radius: $radius-lg $radius-lg $radius-md $radius-md;
+    }
+    
+    &-head {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    
+    &--sender {
+      .hero__person-body {
+        background: linear-gradient(135deg, $color-sender, color.adjust($color-sender, $lightness: -10%));
+      }
+      .hero__person-head {
+        background: linear-gradient(135deg, #FFE0D0, #FFD0B8);
+      }
+    }
+    
+    &--carrier {
+      .hero__person-body {
+        background: linear-gradient(135deg, $color-carrier, color.adjust($color-carrier, $lightness: -10%));
+      }
+      .hero__person-head {
+        background: linear-gradient(135deg, #FFE0D0, #FFD0B8);
+      }
+    }
+  }
+  
+  &__package {
+    position: relative;
+    width: 50px;
+    height: 40px;
+    
+    &-box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #F5A623, #D4880F);
+      border-radius: $radius-sm;
+      box-shadow: inset 0 -10px 20px rgba(0,0,0,0.1);
+    }
+    
+    &-ribbon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: $color-sender;
+      transform: translateY(-50%);
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 40px;
+        background: $color-sender;
+      }
+    }
+  }
+  
+  &__luggage {
+    position: relative;
+    width: 40px;
+    height: 60px;
+    
+    &-body {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, $color-carrier-light, $color-carrier);
+      border-radius: $radius-md;
+    }
+    
+    &-handle {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 15px;
+      border: 3px solid color.adjust($color-carrier, $lightness: -10%);
+      border-bottom: none;
+      border-radius: $radius-sm $radius-sm 0 0;
+    }
+  }
+  
+  &__connection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &-line {
+      position: absolute;
+      width: 100%;
+      height: 50px;
+      animation: dash 2s linear infinite;
+    }
+  }
+  
+  &__exchange-icon {
+    width: 48px;
+    height: 48px;
+    background: $color-white;
+    border-radius: 50%;
+    box-shadow: $shadow-lg;
+    @include flex-center;
+    z-index: 1;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      color: $color-primary;
+    }
+  }
+}
+
+@keyframes float-sender {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-carrier {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -24; }
+}
+
+// ================================
+// BUTTONS
+// ================================
+.btn {
+  @include button-base;
+  
+  &--sender {
+    @include button-sender;
+  }
+  
+  &--carrier {
+    @include button-carrier;
+  }
+}
+
+// ================================
+// ROLES SECTION
+// ================================
+.roles {
+  @include section;
+  background: $color-gray-50;
+  
+  &__container {
+    @include container;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+  }
+  
+  &__title {
+    @include heading-2;
+    color: $color-primary;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    color: $color-gray-500;
+  }
+  
+  &__cards {
+    display: grid;
+    gap: $spacing-8;
+    
+    @include md {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+.role-card {
+  @include card;
+  text-align: center;
+  padding: $spacing-10;
+  transition: all $transition-base;
+  
+  &:hover {
+    transform: translateY(-8px);
+  }
+  
+  &--sender {
+    border-top: 4px solid $color-sender;
+    
+    .role-card__icon {
+      color: $color-sender;
+      background: rgba($color-sender, 0.1);
+    }
+    
+    .role-card__cta {
+      color: $color-sender;
+      
+      &:hover {
+        background: rgba($color-sender, 0.1);
+      }
+    }
+  }
+  
+  &--carrier {
+    border-top: 4px solid $color-carrier;
+    
+    .role-card__icon {
+      color: $color-carrier;
+      background: rgba($color-carrier, 0.1);
+    }
+    
+    .role-card__cta {
+      color: $color-carrier;
+      
+      &:hover {
+        background: rgba($color-carrier, 0.1);
+      }
+    }
+  }
+  
+  &__icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto $spacing-6;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  &__title {
+    @include heading-3;
+    color: $color-gray-800;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__description {
+    @include body-text;
+    color: $color-gray-600;
+    margin-bottom: $spacing-6;
+  }
+  
+  &__cta {
+    @include flex-center;
+    gap: $spacing-2;
+    font-weight: $font-weight-semibold;
+    padding: $spacing-3 $spacing-6;
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+      transition: transform $transition-fast;
+    }
+    
+    &:hover svg {
+      transform: translateX(4px);
+    }
+  }
+}
+
+// ================================
+// JOURNEY SECTIONS
+// ================================
+.journey {
+  @include section;
+  position: relative;
+  overflow: hidden;
+  
+  &--sender {
+    background: linear-gradient(180deg, $color-sender-bg 0%, $color-white 100%);
+    
+    .journey__label {
+      background: rgba($color-sender, 0.1);
+      color: $color-sender;
+    }
+  }
+  
+  &--carrier {
+    background: linear-gradient(180deg, $color-carrier-bg 0%, $color-white 100%);
+    
+    .journey__label {
+      background: rgba($color-carrier, 0.1);
+      color: $color-carrier;
+    }
+  }
+  
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    
+    &-element {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      opacity: 0.05;
+      
+      &:nth-child(1) {
+        top: 10%;
+        right: -100px;
+        background: currentColor;
+      }
+      
+      &:nth-child(2) {
+        bottom: 20%;
+        left: -100px;
+        background: currentColor;
+      }
+    }
+  }
+  
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 1;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-16;
+  }
+  
+  &__label {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__title {
+    @include heading-2;
+    color: $color-primary;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__tagline {
+    @include body-text;
+    color: $color-gray-500;
+  }
+}
+
+// ================================
+// FLOATING ELEMENTS
+// ================================
+.floating-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  
+  &--sender {
+    color: $color-sender;
+  }
+  
+  &--carrier {
+    color: $color-carrier;
+  }
+}
+
+.floating-el {
+  position: absolute;
+  opacity: 0.4;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  // Sender floating elements positions
+  .floating-elements--sender & {
+    &--1 {
+      width: 50px;
+      height: 50px;
+      top: 8%;
+      right: 10%;
+      animation: float-1 6s ease-in-out infinite;
+    }
+    
+    &--2 {
+      width: 35px;
+      height: 44px;
+      top: 25%;
+      left: 5%;
+      animation: float-2 7s ease-in-out infinite 0.5s;
+    }
+    
+    &--3 {
+      width: 45px;
+      height: 36px;
+      top: 55%;
+      right: 8%;
+      animation: float-3 8s ease-in-out infinite 1s;
+    }
+    
+    &--4 {
+      width: 38px;
+      height: 38px;
+      bottom: 20%;
+      left: 8%;
+      animation: float-4 6.5s ease-in-out infinite 1.5s;
+    }
+    
+    &--5 {
+      width: 30px;
+      height: 30px;
+      bottom: 35%;
+      right: 15%;
+      animation: float-5 7.5s ease-in-out infinite 0.8s;
+    }
+  }
+  
+  // Carrier floating elements positions
+  .floating-elements--carrier & {
+    &--1 {
+      width: 55px;
+      height: 55px;
+      top: 10%;
+      left: 8%;
+      animation: float-1 7s ease-in-out infinite;
+    }
+    
+    &--2 {
+      width: 42px;
+      height: 47px;
+      top: 30%;
+      right: 6%;
+      animation: float-2 6s ease-in-out infinite 0.3s;
+    }
+    
+    &--3 {
+      width: 38px;
+      height: 48px;
+      top: 60%;
+      left: 10%;
+      animation: float-3 8s ease-in-out infinite 0.8s;
+    }
+    
+    &--4 {
+      width: 48px;
+      height: 43px;
+      bottom: 25%;
+      right: 10%;
+      animation: float-4 7s ease-in-out infinite 1.2s;
+    }
+    
+    &--5 {
+      width: 36px;
+      height: 36px;
+      bottom: 40%;
+      left: 15%;
+      animation: float-5 6.5s ease-in-out infinite 0.5s;
+    }
+  }
+}
+
+// Floating animations
+@keyframes float-1 {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  33% {
+    transform: translateY(-12px) translateX(5px) scale(1.05);
+  }
+  66% {
+    transform: translateY(-18px) translateX(-3px) scale(0.98);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(-5deg);
+  }
+}
+
+@keyframes float-4 {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(8px);
+  }
+  50% {
+    transform: translateY(-20px) translateX(0);
+  }
+  75% {
+    transform: translateY(-12px) translateX(-6px);
+  }
+}
+
+@keyframes float-5 {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) scale(1.08) rotate(5deg);
+  }
+  66% {
+    transform: translateY(-10px) scale(0.95) rotate(-3deg);
+  }
+}
+
+// ================================
+// TIMELINE
+// ================================
+.timeline {
+  position: relative;
+  padding: $spacing-8 0;
+  
+  &__svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    display: none;
+    
+    @include lg {
+      display: block;
+    }
+  }
+  
+  &__path {
+    filter: drop-shadow(0 0 8px currentColor);
+    transition: stroke-dashoffset 0.05s linear;
+  }
+}
+
+// ================================
+// STEP CARDS
+// ================================
+.step-card {
+  position: relative;
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $spacing-8;
+  margin-bottom: $spacing-8;
+  max-width: 480px;
+  z-index: 1;
+  opacity: 0;
+  transition: all $transition-slower;
+  
+  @include lg {
+    margin-bottom: $spacing-16;
+  }
+  
+  &--left {
+    transform: translateX(-60px);
+    margin-right: auto;
+    
+    @include lg {
+      margin-left: 5%;
+    }
+  }
+  
+  &--right {
+    transform: translateX(60px);
+    margin-left: auto;
+    
+    @include lg {
+      margin-right: 5%;
+    }
+  }
+  
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  &--sender {
+    box-shadow: $shadow-sender;
+    
+    .step-card__marker {
+      background: $color-sender;
+    }
+    
+    .step-card__title {
+      color: $color-sender;
+    }
+    
+    .step-card__icon {
+      color: $color-gray-700;
+    }
+  }
+  
+  &--carrier {
+    box-shadow: $shadow-carrier;
+    
+    .step-card__marker {
+      background: $color-carrier;
+    }
+    
+    .step-card__title {
+      color: $color-carrier;
+    }
+    
+    .step-card__icon {
+      color: $color-gray-700;
+    }
+  }
+  
+  &__marker {
+    position: absolute;
+    top: -20px;
+    left: $spacing-6;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: $color-white;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+    @include flex-center;
+    box-shadow: $shadow-md;
+  }
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+  
+  &__icon {
+    width: 64px;
+    height: 64px;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    
+    @include md {
+      font-size: $font-size-2xl;
+    }
+  }
+  
+  &__description {
+    color: $color-gray-600;
+    line-height: $line-height-relaxed;
+  }
+  
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-top: $spacing-2;
+  }
+}
+
+.tag {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  
+  &--sender {
+    background: rgba($color-sender, 0.1);
+    color: $color-sender;
+  }
+  
+  &--carrier {
+    background: rgba($color-carrier, 0.1);
+    color: $color-carrier;
+  }
+}
+
+// ================================
+// FEATURES
+// ================================
+.features {
+  @include section;
+  background: $color-white;
+  
+  &__container {
+    @include container;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+  }
+  
+  &__title {
+    @include heading-2;
+    color: $color-primary;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    color: $color-gray-500;
+  }
+  
+  &__grid {
+    display: grid;
+    gap: $spacing-6;
+    
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+.feature-card {
+  @include card;
+  text-align: center;
+  transition: all $transition-base;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+  }
+  
+  &__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto $spacing-4;
+    color: $color-primary;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-800;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__description {
+    font-size: $font-size-sm;
+    color: $color-gray-600;
+    line-height: $line-height-relaxed;
+  }
+}
+
+// ================================
+// ABOUT / FOUNDERS
+// ================================
+.about {
+  @include section;
+  background: $color-gray-50;
+  
+  &__container {
+    @include container;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+  }
+  
+  &__title {
+    @include heading-2;
+    color: $color-primary;
+    margin-bottom: $spacing-6;
+  }
+  
+  &__mission {
+    @include body-text;
+    color: $color-gray-600;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+.founders {
+  display: grid;
+  gap: $spacing-6;
+  
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.founder-card {
+  @include card;
+  text-align: center;
+  padding: $spacing-5;
+  
+  @include lg {
+    padding: $spacing-4;
+  }
+  
+  &__photo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto $spacing-3;
+    border-radius: 50%;
+    overflow: hidden;
+    background: $color-gray-100;
+    @include flex-center;
+    
+    @include lg {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  
+  &__placeholder {
+    width: 60px;
+    height: 60px;
+    color: $color-gray-400;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  &__name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-800;
+    margin-bottom: $spacing-1;
+    
+    @include lg {
+      font-size: $font-size-base;
+    }
+  }
+  
+  &__role {
+    font-size: $font-size-sm;
+    color: $color-carrier;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-1;
+    
+    @include lg {
+      font-size: $font-size-xs;
+    }
+  }
+  
+  &__nickname {
+    font-size: $font-size-sm;
+    color: $color-gray-500;
+    font-style: italic;
+    margin-bottom: $spacing-3;
+    
+    @include lg {
+      font-size: $font-size-xs;
+      margin-bottom: $spacing-2;
+    }
+  }
+  
+  &__bio {
+    font-size: $font-size-sm;
+    color: $color-gray-600;
+    margin-bottom: $spacing-4;
+    line-height: $line-height-relaxed;
+    
+    @include lg {
+      font-size: $font-size-xs;
+      margin-bottom: $spacing-3;
+    }
+  }
+  
+  &__social {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-3;
+    
+    a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: $color-gray-100;
+      @include flex-center;
+      color: $color-gray-600;
+      transition: all $transition-fast;
+      
+      &:hover {
+        background: $color-primary;
+        color: $color-white;
+      }
+      
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+// ================================
+// DOWNLOAD
+// ================================
+.download {
+  @include section;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  
+  &__container {
+    @include container;
+  }
+  
+  &__content {
+    display: grid;
+    gap: $spacing-8;
+    align-items: center;
+    
+    @include md {
+      grid-template-columns: 1fr auto 1fr;
+    }
+  }
+  
+  &__side {
+    text-align: center;
+    
+    h3 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-white;
+      margin-bottom: $spacing-3;
+    }
+    
+    p {
+      color: rgba($color-white, 0.8);
+      margin-bottom: $spacing-6;
+    }
+    
+    &--sender h3 {
+      color: $color-sender-light;
+    }
+    
+    &--carrier h3 {
+      color: $color-carrier-light;
+    }
+  }
+  
+  &__divider {
+    display: none;
+    
+    @include md {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-4;
+      
+      &::before,
+      &::after {
+        content: '';
+        width: 1px;
+        height: 40px;
+        background: rgba($color-white, 0.3);
+      }
+      
+      span {
+        color: rgba($color-white, 0.6);
+        font-size: $font-size-sm;
+      }
+    }
+  }
+  
+  &__badges {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    align-items: center;
+    
+    @include sm {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  &__badge {
+    display: block;
+    transition: transform $transition-fast;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+    
+    svg {
+      display: block;
+    }
+  }
+}
+
+// ================================
+// FOOTER
+// ================================
+.footer {
+  background: $color-gray-900;
+  padding: $spacing-16 0 $spacing-8;
+  
+  &__container {
+    @include container;
+  }
+  
+  &__main {
+    display: grid;
+    gap: $spacing-12;
+    margin-bottom: $spacing-12;
+    
+    @include lg {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  
+  &__brand {
+    max-width: 300px;
+  }
+  
+  &__logo {
+    @include flex-start;
+    gap: $spacing-2;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+    margin-bottom: $spacing-4;
+    
+    &-icon {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  &__tagline {
+    font-size: $font-size-sm;
+    color: $color-gray-400;
+    line-height: $line-height-relaxed;
+  }
+  
+  &__links {
+    display: grid;
+    gap: $spacing-8;
+    
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include md {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &__column {
+    h4 {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $color-white;
+      margin-bottom: $spacing-4;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    a {
+      display: block;
+      font-size: $font-size-sm;
+      color: $color-gray-400;
+      padding: $spacing-2 0;
+      transition: color $transition-fast;
+      
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+  
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding-top: $spacing-8;
+    border-top: 1px solid $color-gray-800;
+    
+    @include md {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  &__copyright {
+    font-size: $font-size-sm;
+    color: $color-gray-500;
+  }
+  
+  &__social {
+    display: flex;
+    gap: $spacing-4;
+    
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: $color-gray-800;
+      @include flex-center;
+      color: $color-gray-400;
+      transition: all $transition-fast;
+      
+      &:hover {
+        background: $color-primary;
+        color: $color-white;
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// ================================
+// UTILITIES
+// ================================
+.parallax-slow {
+  will-change: transform;
+}
+
+.parallax-medium {
+  will-change: transform;
+}
+
+.parallax-fast {
+  will-change: transform;
+}

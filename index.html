@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pasabayan - Send packages through travelers going your way. Earn money while traveling by delivering packages along your route.">
+  <title>Pasabayan - Peer-to-Peer Delivery Through Travelers</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__container">
+      <a href="#" class="navbar__logo">
+        <svg class="navbar__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 20L18 26L28 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 12L32 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 4"/>
+        </svg>
+        <span>Pasabayan</span>
+      </a>
+      
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <div class="navbar__menu" id="navMenu">
+        <a href="#how-it-works" class="navbar__link">How It Works</a>
+        <a href="#sender-journey" class="navbar__link">For Senders</a>
+        <a href="#carrier-journey" class="navbar__link">For Carriers</a>
+        <a href="#about" class="navbar__link">About Us</a>
+        <a href="#download" class="navbar__cta">Get the App</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__bg-shape hero__bg-shape--1"></div>
+      <div class="hero__bg-shape hero__bg-shape--2"></div>
+    </div>
+    
+    <div class="hero__container">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          Send Anything, Anywhere — Through Travelers Going Your Way
+        </h1>
+        <p class="hero__subtitle">
+          Whether you need to send a package or earn while traveling — Pasabayan connects you.
+        </p>
+        <div class="hero__ctas">
+          <a href="#sender-journey" class="btn btn--sender">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M16 8L12 12L8 8"/>
+              <path d="M12 12V16"/>
+            </svg>
+            I'm a Sender
+          </a>
+          <a href="#carrier-journey" class="btn btn--carrier">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91"/>
+              <path d="M2 2L22 22" stroke-dasharray="4 4"/>
+              <circle cx="17" cy="7" r="5"/>
+              <path d="M17 5v4M15 7h4"/>
+            </svg>
+            I'm a Carrier
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero__visual">
+        <div class="hero__illustration">
+          <!-- Sender Side -->
+          <div class="hero__side hero__side--sender">
+            <div class="hero__person hero__person--sender">
+              <div class="hero__person-body"></div>
+              <div class="hero__person-head"></div>
+            </div>
+            <div class="hero__package">
+              <div class="hero__package-box"></div>
+              <div class="hero__package-ribbon"></div>
+            </div>
+          </div>
+          
+          <!-- Connection -->
+          <div class="hero__connection">
+            <svg class="hero__connection-line" viewBox="0 0 100 50">
+              <path d="M0,25 Q50,0 100,25" stroke="url(#connectionGradient)" stroke-width="3" fill="none" stroke-dasharray="8 4"/>
+              <defs>
+                <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#F56565"/>
+                  <stop offset="100%" stop-color="#38B2AC"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="hero__exchange-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 16V4M7 4L3 8M7 4L11 8"/>
+                <path d="M17 8V20M17 20L21 16M17 20L13 16"/>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Carrier Side -->
+          <div class="hero__side hero__side--carrier">
+            <div class="hero__person hero__person--carrier">
+              <div class="hero__person-body"></div>
+              <div class="hero__person-head"></div>
+            </div>
+            <div class="hero__luggage">
+              <div class="hero__luggage-body"></div>
+              <div class="hero__luggage-handle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Introduction Section -->
+  <section class="roles" id="how-it-works">
+    <div class="roles__container">
+      <div class="roles__header">
+        <h2 class="roles__title">One App, Two Ways to Use It</h2>
+        <p class="roles__subtitle">Choose your journey below</p>
+      </div>
+      
+      <div class="roles__cards">
+        <!-- Sender Card -->
+        <div class="role-card role-card--sender">
+          <div class="role-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="12" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M8 20L24 30L40 20" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M18 8H30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="24" cy="8" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="role-card__title">Need to send something?</h3>
+          <p class="role-card__description">
+            Ship packages through trusted travelers at a fraction of traditional shipping costs.
+          </p>
+          <a href="#sender-journey" class="role-card__cta">
+            See How Sending Works
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <!-- Carrier Card -->
+        <div class="role-card role-card--carrier">
+          <div class="role-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 40L14 16H34L38 40H10Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M18 16V12C18 9 20 6 24 6C28 6 30 9 30 12V16" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="38" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
+              <path d="M35 14L37 16L41 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="role-card__title">Traveling somewhere?</h3>
+          <p class="role-card__description">
+            Turn your empty luggage space into extra income. Deliver packages along your route.
+          </p>
+          <a href="#carrier-journey" class="role-card__cta">
+            See How Carrying Works
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sender Journey Section -->
+  <section class="journey journey--sender" id="sender-journey">
+    <div class="journey__bg">
+      <div class="journey__bg-element parallax-slow"></div>
+      <div class="journey__bg-element parallax-medium"></div>
+    </div>
+    
+    <!-- Floating Elements for Sender -->
+    <div class="floating-elements floating-elements--sender">
+      <!-- Package Box -->
+      <div class="floating-el floating-el--1">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="4" y="12" width="32" height="24" rx="2" fill="currentColor" opacity="0.15"/>
+          <rect x="4" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M4 18H36" stroke="currentColor" stroke-width="2"/>
+          <path d="M20 12V36" stroke="currentColor" stroke-width="2"/>
+          <path d="M16 6H24L20 12L16 6Z" fill="currentColor" opacity="0.3"/>
+        </svg>
+      </div>
+      <!-- Location Pin -->
+      <div class="floating-el floating-el--2">
+        <svg viewBox="0 0 32 40" fill="none">
+          <path d="M16 2C9.4 2 4 7.4 4 14C4 23 16 38 16 38S28 23 28 14C28 7.4 22.6 2 16 2Z" fill="currentColor" opacity="0.15"/>
+          <path d="M16 2C9.4 2 4 7.4 4 14C4 23 16 38 16 38S28 23 28 14C28 7.4 22.6 2 16 2Z" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="14" r="5" fill="currentColor" opacity="0.4"/>
+        </svg>
+      </div>
+      <!-- Envelope -->
+      <div class="floating-el floating-el--3">
+        <svg viewBox="0 0 40 32" fill="none">
+          <rect x="2" y="4" width="36" height="24" rx="2" fill="currentColor" opacity="0.15"/>
+          <rect x="2" y="4" width="36" height="24" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M2 6L20 18L38 6" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <!-- Dollar Sign -->
+      <div class="floating-el floating-el--4">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.15"/>
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+          <path d="M16 6V26M12 11C12 9 14 8 16 8C18 8 20 9 20 11C20 13 18 14 16 14C14 14 12 15 12 17C12 19 14 20 16 20C18 20 20 19 20 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <!-- Small Package -->
+      <div class="floating-el floating-el--5">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="8" width="24" height="18" rx="2" fill="currentColor" opacity="0.2"/>
+          <path d="M2 14H26" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M14 8V26" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="journey__container">
+      <div class="journey__header">
+        <span class="journey__label journey__label--sender">For Senders</span>
+        <h2 class="journey__title">How It Works for Senders</h2>
+        <p class="journey__tagline">Ship smarter, not harder</p>
+      </div>
+      
+      <div class="timeline timeline--sender">
+        <svg class="timeline__svg" preserveAspectRatio="none">
+          <path class="timeline__path timeline__path--sender" d="" fill="none" stroke="#F56565" stroke-width="3" stroke-dasharray="10,10"/>
+        </svg>
+        
+        <!-- Step 1 - LEFT -->
+        <div class="step-card step-card--sender step-card--left" data-step="1">
+          <div class="step-card__marker">
+            <span>1</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="4" width="32" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 16H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16 24H28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16 32H24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="34" cy="36" r="8" fill="#F56565"/>
+                <path d="M34 32V40M30 36H38" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Create Your Package Request</h3>
+            <p class="step-card__description">
+              List what you need delivered. Add photos, dimensions, weight, and your preferred pickup/delivery dates.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--sender">Easy Listing</span>
+              <span class="tag tag--sender">Photo Upload</span>
+              <span class="tag tag--sender">Flexible Dates</span>
+              <span class="tag tag--sender">Set Your Budget</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2 - RIGHT -->
+        <div class="step-card step-card--sender step-card--right" data-step="2">
+          <div class="step-card__marker">
+            <span>2</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 12V16L19 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <rect x="20" y="24" width="24" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+                <circle cx="32" cy="30" r="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M28 38H36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M38 10L44 16L38 22" stroke="#F56565" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Find the Perfect Carrier</h3>
+            <p class="step-card__description">
+              Browse verified travelers heading your way. Check their ratings, reviews, and travel schedules.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--sender">Verified Travelers</span>
+              <span class="tag tag--sender">Real Reviews</span>
+              <span class="tag tag--sender">Route Matching</span>
+              <span class="tag tag--sender">Compare Options</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3 - LEFT -->
+        <div class="step-card step-card--sender step-card--left" data-step="3">
+          <div class="step-card__marker">
+            <span>3</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path d="M24 4L4 16V32L24 44L44 32V16L24 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M24 20L14 26V34L24 40L34 34V26L24 20Z" fill="#F56565" opacity="0.2"/>
+                <path d="M24 20L14 26V34L24 40L34 34V26L24 20Z" stroke="#F56565" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M20 28L23 31L28 24" stroke="#F56565" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Secure & Pay</h3>
+            <p class="step-card__description">
+              Book your carrier and pay securely. Your payment is held safely until delivery is confirmed.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--sender">Escrow Protection</span>
+              <span class="tag tag--sender">Secure Payment</span>
+              <span class="tag tag--sender">Money-Back Guarantee</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 4 - RIGHT -->
+        <div class="step-card step-card--sender step-card--right" data-step="4">
+          <div class="step-card__marker">
+            <span>4</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="24" r="6" fill="#F56565"/>
+                <path d="M24 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M24 38V42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 24H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M38 24H42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M36 36L40 44" stroke="#F56565" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M40 44H32L36 36" fill="#F56565"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Track & Receive</h3>
+            <p class="step-card__description">
+              Follow your package in real-time. Confirm delivery with a unique code and rate your carrier.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--sender">Live GPS Tracking</span>
+              <span class="tag tag--sender">Delivery Code</span>
+              <span class="tag tag--sender">Rate & Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrier Journey Section -->
+  <section class="journey journey--carrier" id="carrier-journey">
+    <div class="journey__bg">
+      <div class="journey__bg-element parallax-slow"></div>
+      <div class="journey__bg-element parallax-medium"></div>
+    </div>
+    
+    <!-- Floating Elements for Carrier -->
+    <div class="floating-elements floating-elements--carrier">
+      <!-- Airplane -->
+      <div class="floating-el floating-el--1">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path d="M42 24L6 34L10 24L6 14L42 24Z" fill="currentColor" opacity="0.15"/>
+          <path d="M42 24L6 34L10 24L6 14L42 24Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M18 24L14 34V38L18 32" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <!-- Suitcase -->
+      <div class="floating-el floating-el--2">
+        <svg viewBox="0 0 36 40" fill="none">
+          <rect x="2" y="10" width="32" height="26" rx="3" fill="currentColor" opacity="0.15"/>
+          <rect x="2" y="10" width="32" height="26" rx="3" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 10V6C12 4 14 2 18 2C22 2 24 4 24 6V10" stroke="currentColor" stroke-width="2"/>
+          <path d="M2 20H34" stroke="currentColor" stroke-width="2"/>
+          <rect x="14" y="16" width="8" height="8" rx="1" fill="currentColor" opacity="0.3"/>
+        </svg>
+      </div>
+      <!-- Passport -->
+      <div class="floating-el floating-el--3">
+        <svg viewBox="0 0 32 40" fill="none">
+          <rect x="2" y="2" width="28" height="36" rx="2" fill="currentColor" opacity="0.15"/>
+          <rect x="2" y="2" width="28" height="36" rx="2" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="16" r="8" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M16 8V24M8 16H24" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 30H24" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <!-- Coins/Money -->
+      <div class="floating-el floating-el--4">
+        <svg viewBox="0 0 40 36" fill="none">
+          <ellipse cx="16" cy="24" rx="14" ry="10" fill="currentColor" opacity="0.15"/>
+          <ellipse cx="16" cy="24" rx="14" ry="10" stroke="currentColor" stroke-width="2"/>
+          <ellipse cx="24" cy="12" rx="14" ry="10" fill="currentColor" opacity="0.1"/>
+          <ellipse cx="24" cy="12" rx="14" ry="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M24 8V16M21 10L24 8L27 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <!-- Globe -->
+      <div class="floating-el floating-el--5">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.15"/>
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+          <ellipse cx="16" cy="16" rx="6" ry="14" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M2 16H30" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M4 10H28M4 22H28" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="journey__container">
+      <div class="journey__header">
+        <span class="journey__label journey__label--carrier">For Carriers</span>
+        <h2 class="journey__title">How It Works for Carriers</h2>
+        <p class="journey__tagline">Earn while you travel</p>
+      </div>
+      
+      <div class="timeline timeline--carrier">
+        <svg class="timeline__svg" preserveAspectRatio="none">
+          <path class="timeline__path timeline__path--carrier" d="" fill="none" stroke="#38B2AC" stroke-width="4"/>
+        </svg>
+        
+        <!-- Step 1 - RIGHT -->
+        <div class="step-card step-card--carrier step-card--right" data-step="1">
+          <div class="step-card__marker">
+            <span>1</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="8" width="36" height="32" rx="3" stroke="currentColor" stroke-width="2"/>
+                <path d="M6 16H42" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 24H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 30H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="34" cy="30" r="8" fill="#38B2AC"/>
+                <path d="M31 30H37M34 27V33" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Post Your Trip</h3>
+            <p class="step-card__description">
+              Share where you're traveling and when. Set your available luggage space and how much you want to earn.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--carrier">Quick Setup</span>
+              <span class="tag tag--carrier">Set Your Price</span>
+              <span class="tag tag--carrier">Any Destination</span>
+              <span class="tag tag--carrier">Flexible Schedule</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2 - LEFT -->
+        <div class="step-card step-card--carrier step-card--left" data-step="2">
+          <div class="step-card__marker">
+            <span>2</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="4" y="8" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                <rect x="4" y="26" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                <rect x="26" y="8" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                <circle cx="35" cy="15" r="3" stroke="#38B2AC" stroke-width="2"/>
+                <path d="M33 15L34.5 16.5L37 13" stroke="#38B2AC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M28 30L32 34L40 24" stroke="#38B2AC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Browse & Accept Packages</h3>
+            <p class="step-card__description">
+              Review package requests along your route. Accept only what fits your comfort and schedule.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--carrier">You Choose</span>
+              <span class="tag tag--carrier">No Obligations</span>
+              <span class="tag tag--carrier">Route Matching</span>
+              <span class="tag tag--carrier">See Package Details</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3 - RIGHT -->
+        <div class="step-card step-card--carrier step-card--right" data-step="3">
+          <div class="step-card__marker">
+            <span>3</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="14" cy="18" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 26C8 26 4 30 4 36V40H24V36C24 30 20 26 14 26Z" stroke="currentColor" stroke-width="2"/>
+                <circle cx="34" cy="18" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="M34 26C28 26 24 30 24 36V40H44V36C44 30 40 26 34 26Z" stroke="currentColor" stroke-width="2"/>
+                <rect x="18" y="14" width="12" height="10" rx="2" fill="#38B2AC" opacity="0.3" stroke="#38B2AC" stroke-width="2"/>
+                <path d="M21 19L23 21L27 17" stroke="#38B2AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Pick Up the Package</h3>
+            <p class="step-card__description">
+              Meet the sender, verify the package contents, and secure it in your luggage.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--carrier">Easy Meetup</span>
+              <span class="tag tag--carrier">Package Verification</span>
+              <span class="tag tag--carrier">In-App Chat</span>
+              <span class="tag tag--carrier">Pickup Confirmation</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 4 - LEFT -->
+        <div class="step-card step-card--carrier step-card--left" data-step="4">
+          <div class="step-card__marker">
+            <span>4</span>
+          </div>
+          <div class="step-card__content">
+            <div class="step-card__icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="10" y="8" width="28" height="36" rx="3" stroke="currentColor" stroke-width="2"/>
+                <path d="M18 18H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M18 26H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="24" cy="36" r="6" fill="#38B2AC"/>
+                <path d="M21 36L23 38L27 34" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M38 4L44 10L38 16" stroke="#38B2AC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M44 10H36" stroke="#38B2AC" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step-card__title">Deliver & Get Paid</h3>
+            <p class="step-card__description">
+              Hand over the package, get your delivery code confirmed, and receive instant payment.
+            </p>
+            <div class="step-card__tags">
+              <span class="tag tag--carrier">Instant Payout</span>
+              <span class="tag tag--carrier">Build Reputation</span>
+              <span class="tag tag--carrier">Earn Reviews</span>
+              <span class="tag tag--carrier">Repeat Earnings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features__container">
+      <div class="features__header">
+        <h2 class="features__title">Built for Trust & Safety</h2>
+        <p class="features__subtitle">Every feature designed to give you peace of mind</p>
+      </div>
+      
+      <div class="features__grid">
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M24 4L6 12V22C6 33.1 13.9 43.3 24 46C34.1 43.3 42 33.1 42 22V12L24 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M17 24L22 29L31 19" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Verified Users</h3>
+          <p class="feature-card__description">ID verification and background checks for all carriers and senders.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <rect x="6" y="14" width="36" height="28" rx="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M6 22H42" stroke="currentColor" stroke-width="2"/>
+              <path d="M14 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M14 36H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="34" cy="33" r="5" stroke="currentColor" stroke-width="2"/>
+              <path d="M32 33L33.5 34.5L36 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Secure Payments</h3>
+          <p class="feature-card__description">Escrow protection holds payment until delivery is confirmed.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="20" r="14" stroke="currentColor" stroke-width="2"/>
+              <circle cx="24" cy="20" r="4" fill="currentColor"/>
+              <path d="M24 34V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M18 44H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M24 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 20H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M34 20H38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Live Tracking</h3>
+          <p class="feature-card__description">Real-time GPS tracking so you always know where your package is.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M42 24C42 34 34 42 24 42C14 42 6 34 6 24C6 14 14 6 24 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M24 14V26L32 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="38" cy="10" r="6" stroke="currentColor" stroke-width="2"/>
+              <path d="M38 7V13M35 10H41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Flexible Scheduling</h3>
+          <p class="feature-card__description">Set your own pickup and delivery windows that work for you.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M4 36L24 44L44 36V12L24 4L4 12V36Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M4 12L24 20L44 12" stroke="currentColor" stroke-width="2"/>
+              <path d="M24 44V20" stroke="currentColor" stroke-width="2"/>
+              <path d="M17 16L31 23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Package Insurance</h3>
+          <p class="feature-card__description">Optional coverage for valuable items up to $5,000.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
+              <path d="M24 14V24L30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 8L42 4M42 4V10M42 4H36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">24/7 Support</h3>
+          <p class="feature-card__description">Our team is always here to help with any questions or issues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Founders Section -->
+  <section class="about" id="about">
+    <div class="about__container">
+      <div class="about__header">
+        <h2 class="about__title">Meet the Team</h2>
+        <p class="about__mission">
+          We believe in the power of community to solve everyday problems. Pasabayan was born from the Filipino tradition of "pasabay" — the practice of asking travelers to carry items along their journey. We're bringing this trusted tradition into the digital age.
+        </p>
+      </div>
+      
+      <div class="founders">
+        <!-- Dave Estrada -->
+        <div class="founder-card">
+          <div class="founder-card__photo">
+            <div class="founder-card__placeholder">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 44C8 34 15 28 24 28C33 28 40 34 40 44" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="founder-card__name">Dave Estrada</h3>
+          <p class="founder-card__role">Chief Visionary Officer</p>
+          <p class="founder-card__nickname">"The Navigator"</p>
+          <p class="founder-card__bio">Dave steers Pasabayan's mission to revolutionize peer-to-peer delivery across Canada. With a background in business strategy and a passion for the sharing economy, he charts our course toward sustainable growth and community impact.</p>
+          <div class="founder-card__social">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Gerard Galang -->
+        <div class="founder-card">
+          <div class="founder-card__photo">
+            <div class="founder-card__placeholder">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 44C8 34 15 28 24 28C33 28 40 34 40 44" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="founder-card__name">Gerard Galang</h3>
+          <p class="founder-card__role">Chief Operations Officer</p>
+          <p class="founder-card__nickname">"The Connector"</p>
+          <p class="founder-card__bio">Gerard orchestrates our operations and drives market awareness. His expertise in logistics and marketing ensures every delivery connects smoothly while building trust in the Pasabayan community.</p>
+          <div class="founder-card__social">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Jeyem Esplana -->
+        <div class="founder-card">
+          <div class="founder-card__photo">
+            <div class="founder-card__placeholder">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 44C8 34 15 28 24 28C33 28 40 34 40 44" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="founder-card__name">Jeyem Esplana</h3>
+          <p class="founder-card__role">Chief Strategy Officer</p>
+          <p class="founder-card__nickname">"The Architect"</p>
+          <p class="founder-card__bio">Jeyem architects the business foundations that make Pasabayan sustainable and scalable. His strategic insights transform vision into reality, building systems that grow with our community.</p>
+          <div class="founder-card__social">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bong Suyat -->
+        <div class="founder-card">
+          <div class="founder-card__photo">
+            <div class="founder-card__placeholder">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 44C8 34 15 28 24 28C33 28 40 34 40 44" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="founder-card__name">Bong Suyat</h3>
+          <p class="founder-card__role">Chief Technology Officer</p>
+          <p class="founder-card__nickname">"The Blacksmith"</p>
+          <p class="founder-card__bio">Bong forges the technology that powers Pasabayan. From mobile apps to backend systems, he crafts elegant, robust solutions that make peer-to-peer delivery seamless, secure, and delightful.</p>
+          <div class="founder-card__social">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section class="download" id="download">
+    <div class="download__container">
+      <div class="download__content">
+        <div class="download__side download__side--sender">
+          <h3>Ready to Send?</h3>
+          <p>Download Pasabayan and ship your first package today.</p>
+          <div class="download__badges">
+            <a href="#" class="download__badge">
+              <svg viewBox="0 0 120 40" fill="currentColor">
+                <rect width="120" height="40" rx="6" fill="#000"/>
+                <text x="60" y="15" text-anchor="middle" fill="#fff" font-size="8">Download on the</text>
+                <text x="60" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">App Store</text>
+              </svg>
+            </a>
+            <a href="#" class="download__badge">
+              <svg viewBox="0 0 135 40" fill="currentColor">
+                <rect width="135" height="40" rx="6" fill="#000"/>
+                <text x="67" y="15" text-anchor="middle" fill="#fff" font-size="8">GET IT ON</text>
+                <text x="67" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">Google Play</text>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="download__divider">
+          <span>or</span>
+        </div>
+        
+        <div class="download__side download__side--carrier">
+          <h3>Ready to Earn?</h3>
+          <p>Start earning by carrying packages on your next trip.</p>
+          <div class="download__badges">
+            <a href="#" class="download__badge">
+              <svg viewBox="0 0 120 40" fill="currentColor">
+                <rect width="120" height="40" rx="6" fill="#000"/>
+                <text x="60" y="15" text-anchor="middle" fill="#fff" font-size="8">Download on the</text>
+                <text x="60" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">App Store</text>
+              </svg>
+            </a>
+            <a href="#" class="download__badge">
+              <svg viewBox="0 0 135 40" fill="currentColor">
+                <rect width="135" height="40" rx="6" fill="#000"/>
+                <text x="67" y="15" text-anchor="middle" fill="#fff" font-size="8">GET IT ON</text>
+                <text x="67" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">Google Play</text>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <a href="#" class="footer__logo">
+            <svg class="footer__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 20L18 26L28 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 12L32 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 4"/>
+            </svg>
+            <span>Pasabayan</span>
+          </a>
+          <p class="footer__tagline">Connecting senders with travelers, one package at a time.</p>
+        </div>
+        
+        <div class="footer__links">
+          <div class="footer__column">
+            <h4>Product</h4>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#sender-journey">For Senders</a>
+            <a href="#carrier-journey">For Carriers</a>
+            <a href="#features">Features</a>
+          </div>
+          
+          <div class="footer__column">
+            <h4>Company</h4>
+            <a href="#about">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Blog</a>
+          </div>
+          
+          <div class="footer__column">
+            <h4>Support</h4>
+            <a href="#">Help Center</a>
+            <a href="#">Safety</a>
+            <a href="#">Contact Us</a>
+            <a href="#">FAQ</a>
+          </div>
+          
+          <div class="footer__column">
+            <h4>Legal</h4>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <p class="footer__copyright">&copy; 2024 Pasabayan. All rights reserved.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
