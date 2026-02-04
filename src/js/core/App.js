@@ -112,8 +112,8 @@ export class App {
     const texture = new THREE.CanvasTexture(canvas);
     this.scene.background = texture;
     
-    // Soft fog matching the lower sky color
-    this.scene.fog = new THREE.FogExp2(0xd4b8c4, 0.004);
+    // Very light fog for depth - reduced for sharper visuals
+    this.scene.fog = new THREE.FogExp2(0xd4b8c4, 0.001);
   }
 
   initCamera() {
@@ -167,9 +167,8 @@ export class App {
     this.scrollProgress = progress;
     this.scrollVelocity = velocity;
     
-    // Update fog density based on altitude (progress)
-    const fogDensity = 0.005 + Math.sin(progress * Math.PI) * 0.003;
-    this.scene.fog.density = fogDensity;
+    // Very light fog - keep consistent for sharp visuals
+    this.scene.fog.density = 0.001;
     
     // Update sun position for time-of-day effect
     const sunAngle = progress * Math.PI * 0.5;

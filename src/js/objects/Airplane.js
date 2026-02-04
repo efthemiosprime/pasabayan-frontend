@@ -25,9 +25,71 @@ export class Airplane {
     this.trailPositions = [];
     this.maxTrailLength = 150;
     
+    // Visibility control - airplane enters at 2% and exits at 82%
+    this.enterProgress = 0.02;  // Airplane enters scene
+    this.exitProgress = 0.82;   // Airplane exits before HTML sections (88%)
+    this.isVisible = false;
+    
+    // Create flight path that passes by cards
+    this.createFlightPath();
+    
+    // Set initial position OFF-SCREEN (behind/above camera)
+    const initialPos = this.flightPath.getPointAt(0);
+    this.group.position.copy(initialPos);
+    
+    // Set initial rotation to face along the path (into -Z direction)
+    const initialTangent = this.flightPath.getTangentAt(0.01);
+    const angle = Math.atan2(initialTangent.x, -initialTangent.z);
+    this.group.rotation.y = angle;
+    
+    // Start hidden
+    this.group.visible = false;
+    
     this.loadModel();
     this.createVaporTrail();
     scene.add(this.group);
+  }
+  
+  createFlightPath() {
+    // Create a spline path that:
+    // 1. Starts OFF-SCREEN (behind camera, high up)
+    // 2. Enters scene when scrolling starts
+    // 3. Passes by each card location
+    // 4. Flies OUT of scene before HTML sections appear
+    //
+    // Cards are spaced out:
+    // Sender (right): Z = -40, -120, -200, -280 at X ≈ 16-18
+    // Carrier (left): Z = -380, -460, -540, -620 at X ≈ -16 to -18
+    const pathPoints = [
+      // Start OFF-SCREEN - behind and above camera
+      new THREE.Vector3(0, 60, 150),      // Way behind camera (starts hidden)
+      new THREE.Vector3(0, 40, 100),      // Descending toward scene
+      new THREE.Vector3(0, 25, 50),       // Entering visible area
+      new THREE.Vector3(4, 20, 0),        // Now visible, approaching cards
+      
+      // Pass by sender cards
+      new THREE.Vector3(6, 22, -40),      // Pass by sender card 1
+      new THREE.Vector3(8, 30, -120),     // Pass by sender card 2
+      new THREE.Vector3(6, 38, -200),     // Pass by sender card 3
+      new THREE.Vector3(4, 46, -280),     // Pass by sender card 4
+      
+      // Transition to carrier side
+      new THREE.Vector3(0, 50, -330),     // Transition to left side
+      
+      // Pass by carrier cards
+      new THREE.Vector3(-4, 54, -380),    // Pass by carrier card 1
+      new THREE.Vector3(-8, 62, -460),    // Pass by carrier card 2
+      new THREE.Vector3(-6, 70, -540),    // Pass by carrier card 3
+      new THREE.Vector3(-4, 78, -620),    // Pass by carrier card 4
+      
+      // FLY OUT - exit scene dramatically before HTML sections
+      new THREE.Vector3(0, 85, -680),     // Start exit
+      new THREE.Vector3(10, 100, -720),   // Banking right and climbing
+      new THREE.Vector3(40, 130, -780),   // Flying away to the right
+      new THREE.Vector3(100, 180, -850),  // Far off into the distance (hidden)
+    ];
+    
+    this.flightPath = new THREE.CatmullRomCurve3(pathPoints, false, 'centripetal', 0.5);
   }
 
   async loadModel() {
@@ -60,6 +122,11 @@ export class Airplane {
       
       // Scale the model - make it prominent
       this.model.scale.set(3, 3, 3);
+      
+      // Correct model orientation - most GLB airplane models face +X or -X
+      // Rotate to face -Z (Three.js forward direction)
+      this.model.rotation.y = -Math.PI / 2;  // Rotate 90 degrees
+      
       this.group.add(this.model);
       
       // Setup animations if any
@@ -111,39 +178,67 @@ export class Airplane {
     // Create a line-based vapor trail
     const trailGeometry = new THREE.BufferGeometry();
     
-    // Initialize with empty positions
+    // Initialize positions at the starting location (not zeros to avoid black lines)
+    const initialPos = this.flightPath ? this.flightPath.getPointAt(0) : new THREE.Vector3(0, 60, 150);
     const positions = new Float32Array(this.maxTrailLength * 3);
+    for (let i = 0; i < this.maxTrailLength; i++) {
+      positions[i * 3] = initialPos.x;
+      positions[i * 3 + 1] = initialPos.y;
+      positions[i * 3 + 2] = initialPos.z + i * 0.1;
+    }
     trailGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     
-    // Gradient material for the trail
+    // White vapor trail material - starts hidden
     const trailMaterial = new THREE.LineBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.8,
-      linewidth: 2
+      opacity: 0,  // Start hidden
+      linewidth: 1
     });
     
     this.trail = new THREE.Line(trailGeometry, trailMaterial);
     this.trail.frustumCulled = false;
+    this.trail.visible = false;  // Start hidden
     this.scene.add(this.trail);
     
     // Also create a thicker ribbon trail for better visibility
     this.createRibbonTrail();
+    
+    // Initialize trail positions array with starting position
+    for (let i = 0; i < 10; i++) {
+      this.trailPositions.push(initialPos.clone());
+    }
   }
 
   createRibbonTrail() {
     // Create a mesh-based ribbon trail for the contrail effect
+    const initialPos = this.flightPath ? this.flightPath.getPointAt(0) : new THREE.Vector3(0, 60, 150);
     const ribbonGeometry = new THREE.PlaneGeometry(0.3, 1, 1, this.maxTrailLength - 1);
+    
+    // Initialize ribbon positions at starting location
+    const ribbonPositions = ribbonGeometry.attributes.position.array;
+    for (let i = 0; i < this.maxTrailLength; i++) {
+      const idx = i * 2 * 3;
+      ribbonPositions[idx] = initialPos.x + 0.15;
+      ribbonPositions[idx + 1] = initialPos.y;
+      ribbonPositions[idx + 2] = initialPos.z + i * 0.1;
+      ribbonPositions[idx + 3] = initialPos.x - 0.15;
+      ribbonPositions[idx + 4] = initialPos.y;
+      ribbonPositions[idx + 5] = initialPos.z + i * 0.1;
+    }
+    ribbonGeometry.attributes.position.needsUpdate = true;
+    
     const ribbonMaterial = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0,  // Start hidden
       side: THREE.DoubleSide,
       depthWrite: false
     });
     
     this.ribbon = new THREE.Mesh(ribbonGeometry, ribbonMaterial);
     this.ribbon.frustumCulled = false;
+    this.ribbon.visible = false;  // Start hidden
     this.scene.add(this.ribbon);
   }
 
@@ -155,10 +250,49 @@ export class Airplane {
       this.mixer.update(deltaTime);
     }
     
-    // Airplane always visible
-    this.group.visible = true;
-    this.trail.visible = true;
-    this.ribbon.visible = true;
+    // Control visibility based on scroll progress
+    // Enter at 2%, exit at 82% (before HTML sections at 88%)
+    const fadeInStart = this.enterProgress;
+    const fadeInEnd = this.enterProgress + 0.03;   // Fade in over 3%
+    const fadeOutStart = this.exitProgress;
+    const fadeOutEnd = this.exitProgress + 0.05;   // Fade out over 5%
+    
+    let opacity = 0;
+    if (progress < fadeInStart) {
+      // Before entry - hidden
+      opacity = 0;
+    } else if (progress < fadeInEnd) {
+      // Fading in
+      opacity = (progress - fadeInStart) / (fadeInEnd - fadeInStart);
+    } else if (progress < fadeOutStart) {
+      // Fully visible
+      opacity = 1;
+    } else if (progress < fadeOutEnd) {
+      // Fading out (flying away)
+      opacity = 1 - (progress - fadeOutStart) / (fadeOutEnd - fadeOutStart);
+    } else {
+      // After exit - hidden
+      opacity = 0;
+    }
+    
+    opacity = Math.max(0, Math.min(1, opacity));
+    this.isVisible = opacity > 0.01;
+    
+    // Set visibility
+    this.group.visible = this.isVisible;
+    if (this.trail) this.trail.visible = this.isVisible;
+    if (this.ribbon) this.ribbon.visible = this.isVisible;
+    
+    // Update trail opacity for fade effect
+    if (this.trail && this.trail.material) {
+      this.trail.material.opacity = 0.5 * opacity;
+    }
+    if (this.ribbon && this.ribbon.material) {
+      this.ribbon.material.opacity = 0.4 * opacity;
+    }
+    
+    // Only update position if visible
+    if (!this.isVisible) return;
     
     // Smooth progress interpolation for silky movement
     this.currentProgress += (progress - this.currentProgress) * 0.03;
@@ -169,21 +303,27 @@ export class Airplane {
     // Extra smooth position interpolation
     this.group.position.lerp(this.targetPosition, 0.04);
     
-    // Airplane faces forward (flying into the distance)
-    // Smooth rotation based on movement
-    const pitch = Math.sin(this.currentProgress * Math.PI) * 0.08;
-    const bank = Math.sin(this.currentProgress * Math.PI * 3) * 0.05;
-    
-    // Smoothly interpolate rotation
-    const targetRotation = new THREE.Euler(
-      pitch,
-      -Math.PI / 2,  // Face forward
-      bank
-    );
-    
-    this.group.rotation.x += (targetRotation.x - this.group.rotation.x) * 0.03;
-    this.group.rotation.y += (targetRotation.y - this.group.rotation.y) * 0.03;
-    this.group.rotation.z += (targetRotation.z - this.group.rotation.z) * 0.03;
+    // Get flight direction from path tangent for natural orientation
+    if (this.flightPath) {
+      const t = Math.min(0.99, Math.max(0.01, this.currentProgress));
+      const tangent = this.flightPath.getTangentAt(t);
+      
+      // Calculate yaw (rotation around Y axis) to face movement direction
+      const targetYaw = Math.atan2(tangent.x, -tangent.z);
+      
+      // Calculate pitch based on vertical movement
+      const targetPitch = Math.atan2(-tangent.y, Math.sqrt(tangent.x * tangent.x + tangent.z * tangent.z)) * 0.5;
+      
+      // Calculate bank based on horizontal turning rate
+      const targetBank = -tangent.x * 0.4;
+      
+      // Create target rotation using Euler angles (YXZ order for aircraft)
+      const targetEuler = new THREE.Euler(targetPitch, targetYaw, targetBank, 'YXZ');
+      const targetQuaternion = new THREE.Quaternion().setFromEuler(targetEuler);
+      
+      // Smooth rotation interpolation
+      this.group.quaternion.slerp(targetQuaternion, 0.05);
+    }
     
     // Update propeller
     if (this.propeller) {
@@ -195,20 +335,13 @@ export class Airplane {
   }
 
   getFlightPosition(t) {
-    // Airplane flies FORWARD through clouds (camera follows from behind)
-    // Z axis is the main direction of travel
-    const position = new THREE.Vector3();
+    // Use the spline path that passes by each card
+    if (this.flightPath) {
+      return this.flightPath.getPointAt(Math.min(1, Math.max(0, t)));
+    }
     
-    // Flying forward into the distance
-    position.z = 20 - t * 200;  // Start at z=20, fly to z=-180
-    
-    // Gentle horizontal drift (slight S-curve)
-    position.x = Math.sin(t * Math.PI * 2) * 15;
-    
-    // Altitude changes - rise through clouds, then level out
-    position.y = 15 + Math.sin(t * Math.PI) * 20 + t * 10;
-    
-    return position;
+    // Fallback if path not ready
+    return new THREE.Vector3(0, 20, 20 - t * 260);
   }
   
   // Get position for camera to follow

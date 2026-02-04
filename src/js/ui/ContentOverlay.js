@@ -23,15 +23,19 @@ export class ContentOverlay {
       const section = {
         id: sectionId,
         element: element,
-        isVisible: false,
+        isVisible: sectionId === 'intro', // Intro starts visible
         hasAnimated: false
       };
       
       this.sections.push(section);
       
-      // Initially hide all except intro
-      if (sectionId !== 'intro') {
+      // Initially hide ALL sections except intro
+      if (sectionId === 'intro') {
+        element.classList.remove('hidden');
+        element.classList.add('visible');
+      } else {
         element.classList.add('hidden');
+        element.classList.remove('visible');
       }
     });
     
@@ -44,19 +48,70 @@ export class ContentOverlay {
     window.addEventListener('sectionchange', (e) => {
       this.onSectionChange(e.detail.prev, e.detail.current);
     });
+    
+    // Initialize sections based on current scroll position (handles page refresh)
+    requestAnimationFrame(() => {
+      const progress = this.scrollManager.progress || 0;
+      this.initializeSectionsForProgress(progress);
+    });
+  }
+  
+  initializeSectionsForProgress(progress) {
+    // Define visibility ranges (same as updateSections)
+    const sectionRanges = {
+      'intro': { start: 0, end: 0.03 },
+      'send-anything': { start: -1, end: -1 },
+      'sender-steps': { start: -1, end: -1 },
+      'earn-traveling': { start: -1, end: -1 },
+      'carrier-steps': { start: -1, end: -1 },
+      'features': { start: 0.88, end: 0.92 },
+      'team': { start: 0.94, end: 0.97 },
+      'cta': { start: 0.99, end: 1.01 }
+    };
+    
+    this.sections.forEach(section => {
+      const range = sectionRanges[section.id];
+      if (!range) return;
+      
+      const shouldBeVisible = progress >= range.start && progress <= range.end;
+      
+      if (shouldBeVisible) {
+        // Show immediately without animation on load
+        section.isVisible = true;
+        section.element.classList.remove('hidden');
+        section.element.classList.add('visible');
+        section.element.style.display = ''; // Remove inline display:none
+        
+        // Set full opacity
+        const inner = section.element.querySelector('.content-section__inner');
+        if (inner) {
+          inner.style.opacity = '1';
+          inner.style.transform = 'translateY(0)';
+        }
+      } else {
+        // Ensure hidden
+        section.isVisible = false;
+        section.element.classList.add('hidden');
+        section.element.classList.remove('visible');
+        // Keep display:none for hidden sections
+      }
+    });
   }
 
   updateSections(progress, currentScrollSection) {
     // Define visibility ranges for each section
+    // 3D cards end at 80%, fade out by 83%
+    // 5% gap before HTML sections start at 88%
+    // With 16000px scroll: 1% = 160px of scroll distance
     const sectionRanges = {
-      'intro': { start: 0, end: 0.12 },
-      'send-anything': { start: 0.10, end: 0.28 },
-      'sender-steps': { start: 0.25, end: 0.42 },
-      'earn-traveling': { start: 0.40, end: 0.58 },
-      'carrier-steps': { start: 0.55, end: 0.72 },
-      'features': { start: 0.70, end: 0.87 },
-      'team': { start: 0.85, end: 0.96 },
-      'cta': { start: 0.94, end: 1.0 }
+      'intro': { start: 0, end: 0.03 },          // Disappears shortly after scroll starts
+      'send-anything': { start: -1, end: -1 },   // Hidden - shown in 3D
+      'sender-steps': { start: -1, end: -1 },    // Hidden - shown in 3D
+      'earn-traveling': { start: -1, end: -1 },  // Hidden - shown in 3D
+      'carrier-steps': { start: -1, end: -1 },   // Hidden - shown in 3D
+      'features': { start: 0.88, end: 0.92 },    // Built for Trust - 4% = 640px scroll
+      'team': { start: 0.94, end: 0.97 },        // Meet the Team - 2% gap, 3% = 480px scroll
+      'cta': { start: 0.99, end: 1.01 }          // Footer/CTA - 2% gap, stays visible
     };
     
     this.sections.forEach(section => {
@@ -83,6 +138,8 @@ export class ContentOverlay {
     section.isVisible = true;
     section.element.classList.remove('hidden');
     section.element.classList.add('visible');
+    // Remove inline display:none if present
+    section.element.style.display = '';
     
     // Animate in
     const inner = section.element.querySelector('.content-section__inner');
@@ -145,14 +202,16 @@ export class ContentOverlay {
     
     const inner = section.element.querySelector('.content-section__inner');
     if (inner) {
+      // Instant hide to prevent overlap with next section
       gsap.to(inner, {
         opacity: 0,
-        y: -30,
-        duration: 0.4,
+        y: -20,
+        duration: 0.15,
         ease: 'power2.in',
         onComplete: () => {
           section.element.classList.remove('visible');
           section.element.classList.add('hidden');
+          section.element.style.display = 'none'; // Fully hide
         }
       });
     }

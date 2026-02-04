@@ -15,19 +15,20 @@ export class ScrollManager {
     this.callbacks = [];
     this.sectionCallbacks = new Map();
     
-    // Journey length (virtual scroll height)
-    this.journeyLength = options.journeyLength || 10000;
+    // Journey length (virtual scroll height) - extended for comfortable viewing
+    this.journeyLength = options.journeyLength || 16000;
     
-    // Section breakpoints
+    // Section breakpoints - 3D cards: 0-80%, Gap: 80-88%, HTML: 88-100%
+    // With 16000px scroll height, each % = 160px of scroll
     this.sections = options.sections || [
-      { id: 'intro', start: 0, end: 0.10 },
-      { id: 'send-anything', start: 0.10, end: 0.25 },
-      { id: 'sender-steps', start: 0.25, end: 0.40 },
-      { id: 'earn-traveling', start: 0.40, end: 0.55 },
-      { id: 'carrier-steps', start: 0.55, end: 0.70 },
-      { id: 'features', start: 0.70, end: 0.85 },
-      { id: 'team', start: 0.85, end: 0.95 },
-      { id: 'cta', start: 0.95, end: 1.0 }
+      { id: 'intro', start: 0, end: 0.03 },
+      { id: 'send-anything', start: 0.03, end: 0.08 },   // 3D sender intro
+      { id: 'sender-steps', start: 0.08, end: 0.38 },    // 3D sender cards (ends 38%)
+      { id: 'earn-traveling', start: 0.40, end: 0.45 },  // 3D carrier intro  
+      { id: 'carrier-steps', start: 0.45, end: 0.80 },   // 3D carrier cards (ends 80%)
+      { id: 'features', start: 0.88, end: 0.92 },        // Built for Trust - 4% = 640px
+      { id: 'team', start: 0.94, end: 0.97 },            // Meet the Team - 3% = 480px
+      { id: 'cta', start: 0.99, end: 1.01 }              // Footer/CTA - stays visible
     ];
     
     this.currentSection = null;
@@ -40,6 +41,9 @@ export class ScrollManager {
     if (this.scrollContainer) {
       this.scrollContainer.style.height = `${this.journeyLength}px`;
     }
+
+    // Reset scroll position to top on page load to prevent stale state
+    window.scrollTo(0, 0);
 
     // Initialize Lenis for ultra-smooth scrolling
     this.lenis = new Lenis({
@@ -58,6 +62,30 @@ export class ScrollManager {
 
     // Start animation loop
     this.startLoop();
+    
+    // Force initial state update based on current scroll position
+    // This handles cases where browser might restore scroll position
+    requestAnimationFrame(() => {
+      this.forceUpdate();
+    });
+  }
+  
+  forceUpdate() {
+    // Calculate current progress based on actual scroll position
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const maxScroll = this.journeyLength - window.innerHeight;
+    
+    this.progress = Math.max(0, Math.min(1, scrollY / maxScroll));
+    this.currentSection = this.getCurrentSection();
+    
+    // Notify all callbacks with current state
+    this.callbacks.forEach(cb => cb({
+      progress: this.progress,
+      velocity: 0,
+      direction: 1,
+      section: this.currentSection,
+      sectionProgress: this.getSectionProgress()
+    }));
   }
 
   startLoop() {

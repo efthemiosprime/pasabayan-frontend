@@ -1,26 +1,38 @@
 /**
- * ProgressBar - Visual scroll progress indicator
+ * ProgressBar - Timeline navigation with section progress
  */
 
 export class ProgressBar {
   constructor(scrollManager) {
     this.scrollManager = scrollManager;
-    this.container = document.getElementById('progress-bar');
-    this.fill = this.container?.querySelector('.progress-bar__fill');
+    this.container = document.getElementById('timeline-nav');
+    this.progressFill = this.container?.querySelector('.timeline-nav__progress');
     this.sections = [];
+    
+    // Section progress ranges (matches ScrollManager)
+    this.sectionRanges = {
+      'intro': { start: 0, end: 0.03 },
+      'sender': { start: 0.03, end: 0.38 },
+      'carrier': { start: 0.40, end: 0.80 },
+      'features': { start: 0.88, end: 0.92 },
+      'team': { start: 0.94, end: 0.97 },
+      'cta': { start: 0.99, end: 1.01 }  // Stays active at the end
+    };
     
     this.init();
   }
 
   init() {
-    if (!this.container || !this.fill) return;
+    if (!this.container) return;
     
-    // Get section markers
-    const sectionElements = this.container.querySelectorAll('.progress-bar__section');
+    // Get section elements
+    const sectionElements = this.container.querySelectorAll('.timeline-nav__section');
     sectionElements.forEach(el => {
       this.sections.push({
         element: el,
-        id: el.dataset.section
+        id: el.dataset.section,
+        dot: el.querySelector('.timeline-nav__dot'),
+        label: el.querySelector('.timeline-nav__label')
       });
     });
     
@@ -31,34 +43,28 @@ export class ProgressBar {
     
     // Add click handlers for navigation
     this.addClickHandlers();
+    
+    // Show after short delay
+    setTimeout(() => this.show(), 1500);
   }
 
   update(progress, currentSection) {
-    // Update fill bar
-    if (this.fill) {
-      this.fill.style.height = `${progress * 100}%`;
+    // Update progress fill (the vertical line)
+    if (this.progressFill) {
+      this.progressFill.style.height = `${progress * 100}%`;
     }
     
-    // Update section indicators
+    // Update section states
     this.sections.forEach(section => {
-      const isPast = this.isSectionPast(section.id, progress);
-      const isCurrent = currentSection?.id === section.id;
+      const range = this.sectionRanges[section.id];
+      if (!range) return;
       
-      section.element.classList.toggle('past', isPast);
-      section.element.classList.toggle('current', isCurrent);
+      const isCompleted = progress > range.end;
+      const isActive = progress >= range.start && progress <= range.end;
+      
+      section.element.classList.toggle('completed', isCompleted);
+      section.element.classList.toggle('active', isActive);
     });
-  }
-
-  isSectionPast(sectionId, progress) {
-    const sectionEnds = {
-      'intro': 0.12,
-      'sender': 0.42,
-      'carrier': 0.72,
-      'features': 0.87,
-      'team': 1.0
-    };
-    
-    return progress > (sectionEnds[sectionId] || 0);
   }
 
   addClickHandlers() {
@@ -70,13 +76,14 @@ export class ProgressBar {
   }
 
   navigateToSection(sectionId) {
-    // Map progress bar sections to scroll sections
+    // Map nav sections to scroll manager sections
     const sectionMap = {
       'intro': 'intro',
       'sender': 'send-anything',
       'carrier': 'earn-traveling',
       'features': 'features',
-      'team': 'team'
+      'team': 'team',
+      'cta': 'cta'
     };
     
     const targetSection = sectionMap[sectionId];

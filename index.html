@@ -34,15 +34,36 @@
   <!-- Scroll Container (virtual scroll height) -->
   <div id="scroll-container"></div>
 
-  <!-- Progress Indicator -->
-  <div id="progress-bar" class="progress-bar">
-    <div class="progress-bar__fill"></div>
-    <div class="progress-bar__sections">
-      <div class="progress-bar__section" data-section="intro"></div>
-      <div class="progress-bar__section" data-section="sender"></div>
-      <div class="progress-bar__section" data-section="carrier"></div>
-      <div class="progress-bar__section" data-section="features"></div>
-      <div class="progress-bar__section" data-section="team"></div>
+  <!-- Timeline Pagination -->
+  <div id="timeline-nav" class="timeline-nav">
+    <div class="timeline-nav__track">
+      <div class="timeline-nav__progress"></div>
+    </div>
+    <div class="timeline-nav__sections">
+      <div class="timeline-nav__section" data-section="intro">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Intro</span>
+      </div>
+      <div class="timeline-nav__section" data-section="sender">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Send</span>
+      </div>
+      <div class="timeline-nav__section" data-section="carrier">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Carry</span>
+      </div>
+      <div class="timeline-nav__section" data-section="features">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Trust</span>
+      </div>
+      <div class="timeline-nav__section" data-section="team">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Team</span>
+      </div>
+      <div class="timeline-nav__section" data-section="cta">
+        <div class="timeline-nav__dot"></div>
+        <span class="timeline-nav__label">Start</span>
+      </div>
     </div>
   </div>
 
@@ -81,8 +102,8 @@
       </div>
     </section>
 
-    <!-- Send Anything Section -->
-    <section class="content-section content-section--sender-intro" data-section="send-anything">
+    <!-- Send Anything Section - Hidden (shown in 3D) -->
+    <section class="content-section content-section--sender-intro hidden" data-section="send-anything" style="display: none;">
       <div class="content-section__inner content-section__inner--left">
         <span class="section-label section-label--sender">For Senders</span>
         <h2 class="title-section">Send Anything,<br>Anywhere</h2>
@@ -90,8 +111,8 @@
       </div>
     </section>
 
-    <!-- Sender Steps Section -->
-    <section class="content-section content-section--sender-steps" data-section="sender-steps">
+    <!-- Sender Steps Section - Hidden (shown in 3D) -->
+    <section class="content-section content-section--sender-steps hidden" data-section="sender-steps" style="display: none;">
       <div class="content-section__inner">
         <div class="journey-timeline journey-timeline--sender">
           <div class="journey-timeline__header">
@@ -200,8 +221,8 @@
       </div>
     </section>
 
-    <!-- Carrier Intro Section -->
-    <section class="content-section content-section--carrier-intro" data-section="earn-traveling">
+    <!-- Carrier Intro Section - Hidden (shown in 3D) -->
+    <section class="content-section content-section--carrier-intro hidden" data-section="earn-traveling" style="display: none;">
       <div class="content-section__inner content-section__inner--right">
         <span class="section-label section-label--carrier">For Carriers</span>
         <h2 class="title-section">Earn While<br>Traveling</h2>
@@ -209,8 +230,8 @@
       </div>
     </section>
 
-    <!-- Carrier Steps Section -->
-    <section class="content-section content-section--carrier-steps" data-section="carrier-steps">
+    <!-- Carrier Steps Section - Hidden (shown in 3D) -->
+    <section class="content-section content-section--carrier-steps hidden" data-section="carrier-steps" style="display: none;">
       <div class="content-section__inner">
         <div class="journey-timeline journey-timeline--carrier">
           <div class="journey-timeline__header">
@@ -323,7 +344,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="content-section content-section--features" data-section="features">
+    <section class="content-section content-section--features hidden" data-section="features" style="display: none;">
       <div class="content-section__inner">
         <h2 class="title-section title-section--center">Built for Trust</h2>
         <div class="features-grid">
@@ -372,7 +393,7 @@
     </section>
 
     <!-- Team Section -->
-    <section class="content-section content-section--team" data-section="team">
+    <section class="content-section content-section--team hidden" data-section="team" style="display: none;">
       <div class="content-section__inner">
         <h2 class="title-section title-section--center">Meet the Team</h2>
         <p class="section-text section-text--center">We believe in the power of community to solve everyday problems.</p>
@@ -402,7 +423,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="content-section content-section--cta" data-section="cta">
+    <section class="content-section content-section--cta hidden" data-section="cta" style="display: none;">
       <div class="content-section__inner content-section__inner--center">
         <h2 class="title-section">Ready to Get Started?</h2>
         <p class="section-text">Download Pasabayan and join the community.</p>

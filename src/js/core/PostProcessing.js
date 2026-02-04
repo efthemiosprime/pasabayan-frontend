@@ -60,17 +60,17 @@ export class PostProcessing {
       effects.push(bloomEffect);
     }
     
-    // Depth of Field
-    if (this.settings.enableDOF) {
-      const dofEffect = new DepthOfFieldEffect(this.camera, {
-        focusDistance: 0.02,
-        focalLength: 0.05,
-        bokehScale: 3,
-        height: 480
-      });
-      this.effects.dof = dofEffect;
-      effects.push(dofEffect);
-    }
+    // Depth of Field - DISABLED for sharper visuals
+    // if (this.settings.enableDOF) {
+    //   const dofEffect = new DepthOfFieldEffect(this.camera, {
+    //     focusDistance: 0.02,
+    //     focalLength: 0.05,
+    //     bokehScale: 3,
+    //     height: 480
+    //   });
+    //   this.effects.dof = dofEffect;
+    //   effects.push(dofEffect);
+    // }
     
     // Vignette
     const vignetteEffect = new VignetteEffect({

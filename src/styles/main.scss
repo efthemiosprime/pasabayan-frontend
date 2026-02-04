@@ -149,17 +149,20 @@ html.lenis, html.lenis body {
 }
 
 // ================================
-// PROGRESS BAR
+// TIMELINE NAVIGATION
 // ================================
 
-.progress-bar {
+.timeline-nav {
   position: fixed;
-  right: 24px;
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
   opacity: 0;
   transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
   &.visible {
     opacity: 1;
@@ -170,48 +173,118 @@ html.lenis, html.lenis body {
     pointer-events: none;
   }
 
-  &__fill {
+  &__track {
     position: absolute;
-    left: 50%;
+    left: 6px;
     top: 0;
-    transform: translateX(-50%);
+    bottom: 0;
     width: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+  }
+
+  &__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 0%;
     background: linear-gradient(to bottom, $color-sender, $color-carrier);
-    transition: height 0.1s ease-out;
+    border-radius: 2px;
+    transition: height 0.15s ease-out;
   }
 
   &__sections {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 28px;
     position: relative;
     z-index: 1;
   }
 
   &__section {
-    width: 12px;
-    height: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      transform: scale(1.2);
+      .timeline-nav__dot {
+        transform: scale(1.3);
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .timeline-nav__label {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
-    &.current {
-      border-color: $color-primary;
-      background: $color-primary;
-      box-shadow: 0 0 12px rgba($color-primary, 0.5);
+    &.active {
+      .timeline-nav__dot {
+        border-color: $color-primary;
+        background: $color-primary;
+        box-shadow: 0 0 12px rgba($color-primary, 0.6);
+        transform: scale(1.2);
+      }
+      
+      .timeline-nav__label {
+        opacity: 1;
+        color: white;
+        font-weight: 600;
+      }
     }
 
-    &.past {
-      border-color: rgba(255, 255, 255, 0.5);
-      background: rgba(255, 255, 255, 0.5);
+    &.completed {
+      .timeline-nav__dot {
+        border-color: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.7);
+      }
+      
+      .timeline-nav__label {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__dot {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  &__label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+}
+
+// Mobile - hide labels, show only dots
+@media (max-width: 768px) {
+  .timeline-nav {
+    right: 16px;
+    
+    &__label {
+      display: none;
+    }
+    
+    &__sections {
+      gap: 20px;
+    }
+    
+    &__dot {
+      width: 10px;
+      height: 10px;
     }
   }
 }
@@ -325,6 +398,16 @@ html.lenis, html.lenis body {
     opacity: 0;
     visibility: hidden;
   }
+  
+  // Sections shown in 3D should always stay hidden in HTML
+  &[data-section="send-anything"],
+  &[data-section="sender-steps"],
+  &[data-section="earn-traveling"],
+  &[data-section="carrier-steps"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 
   &__inner {
     max-width: 1200px;
@@ -364,6 +447,9 @@ html.lenis, html.lenis body {
 // ================================
 
 .content-section--intro {
+  opacity: 1;
+  visibility: visible;
+
   .content-section__inner {
     text-align: center;
     display: flex;
@@ -383,42 +469,26 @@ html.lenis, html.lenis body {
 
   &__line {
     display: block;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-
-    &.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .subtitle {
   font-size: 1.25rem;
-  opacity: 0;
+  opacity: 1;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 48px;
-  transition: opacity 0.8s ease 0.5s;
-
-  &.animate-in {
-    opacity: 1;
-  }
 }
 
 .scroll-hint {
-  opacity: 0;
+  opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.875rem;
-  transition: opacity 0.8s ease;
-
-  &.animate-in {
-    opacity: 1;
-  }
 
   &__mouse {
     width: 24px;
@@ -490,6 +560,14 @@ html.lenis, html.lenis body {
   &--center {
     text-align: center;
     margin: 0 auto 40px;
+  }
+  
+  // Center in CTA section
+  .content-section--cta & {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
   }
 }
 
@@ -596,11 +674,13 @@ html.lenis, html.lenis body {
   display: flex;
   gap: 24px;
   opacity: 0;
+  visibility: hidden;
   transform: translateX(-20px);
   transition: all 0.5s ease;
   
   &.visible {
     opacity: 1;
+    visibility: visible;
     transform: translateX(0);
   }
   
