@@ -1,0 +1,255 @@
+@use 'sass:color';
+@use 'variables' as *;
+
+// Media Queries
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: $breakpoint-2xl) {
+    @content;
+  }
+}
+
+// Container
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+// Flexbox
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+// Typography
+@mixin heading-1 {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  
+  @include md {
+    font-size: $font-size-5xl;
+  }
+  
+  @include lg {
+    font-size: $font-size-6xl;
+  }
+}
+
+@mixin heading-2 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  
+  @include md {
+    font-size: $font-size-4xl;
+  }
+}
+
+@mixin heading-3 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  
+  @include md {
+    font-size: $font-size-2xl;
+  }
+}
+
+@mixin body-text {
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  
+  @include md {
+    font-size: $font-size-lg;
+  }
+}
+
+// Buttons
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  border-radius: $radius-lg;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-base;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-sender {
+  @include button-base;
+  background: $color-sender;
+  color: $color-white;
+  box-shadow: 0 4px 14px rgba($color-sender, 0.4);
+  
+  &:hover {
+    background: color.adjust($color-sender, $lightness: -8%);
+    box-shadow: 0 6px 20px rgba($color-sender, 0.5);
+  }
+}
+
+@mixin button-carrier {
+  @include button-base;
+  background: $color-carrier;
+  color: $color-white;
+  box-shadow: 0 4px 14px rgba($color-carrier, 0.4);
+  
+  &:hover {
+    background: color.adjust($color-carrier, $lightness: -8%);
+    box-shadow: 0 6px 20px rgba($color-carrier, 0.5);
+  }
+}
+
+// Cards
+@mixin card {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-lg;
+}
+
+@mixin card-sender {
+  @include card;
+  border: 2px solid transparent;
+  box-shadow: $shadow-sender;
+  
+  &:hover {
+    border-color: rgba($color-sender, 0.3);
+  }
+}
+
+@mixin card-carrier {
+  @include card;
+  border: 2px solid transparent;
+  box-shadow: $shadow-carrier;
+  
+  &:hover {
+    border-color: rgba($color-carrier, 0.3);
+  }
+}
+
+// Section
+@mixin section {
+  padding: $spacing-16 0;
+  
+  @include md {
+    padding: $spacing-20 0;
+  }
+  
+  @include lg {
+    padding: $spacing-24 0;
+  }
+}
+
+// Smooth scroll reveal animation
+@mixin scroll-reveal($direction: 'up', $distance: 40px) {
+  opacity: 0;
+  transition: opacity $transition-slower, transform $transition-slower;
+  
+  @if $direction == 'up' {
+    transform: translateY($distance);
+  } @else if $direction == 'down' {
+    transform: translateY(-$distance);
+  } @else if $direction == 'left' {
+    transform: translateX($distance);
+  } @else if $direction == 'right' {
+    transform: translateX(-$distance);
+  }
+  
+  &.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+// Gradient text
+@mixin gradient-text($from, $to) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Focus styles
+@mixin focus-ring {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+  }
+  
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+  }
+}
+
+// Visually hidden (for accessibility)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
