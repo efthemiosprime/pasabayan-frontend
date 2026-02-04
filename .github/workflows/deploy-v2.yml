@@ -1,0 +1,35 @@
+name: Deploy V2 to Production
+
+on:
+  push:
+    branches:
+      - v2
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy V2 to Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Create v2 directory if it doesn't exist
+            if [ ! -d "/var/www/pasabayan-frontend/v2" ]; then
+              echo "📁 Creating v2 directory..."
+              mkdir -p /var/www/pasabayan-frontend/v2
+              cd /var/www/pasabayan-frontend/v2
+              git clone -b v2 https://github.com/${{ github.repository }}.git .
+            else
+              cd /var/www/pasabayan-frontend/v2
+              git fetch origin v2
+              git reset --hard origin/v2
+            fi
+            
+            npm install
+            npm run build
+            echo "✅ V2 Deployment completed successfully!"
