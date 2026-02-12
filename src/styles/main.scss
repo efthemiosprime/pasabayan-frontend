@@ -695,8 +695,15 @@ img {
   }
   
   &__path {
-    filter: drop-shadow(0 0 8px currentColor);
     transition: stroke-dashoffset 0.05s linear;
+
+    &--sender {
+      stroke: $color-sender; // rgb(168, 85, 247)
+    }
+
+    &--carrier {
+      stroke: $color-carrier; // rgb(59, 130, 246)
+    }
   }
 }
 
@@ -1193,7 +1200,7 @@ img {
   
   &__logo {
     @include flex-start;
-    gap: $spacing-2;
+    gap: 0;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-white;
