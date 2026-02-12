@@ -1,6 +1,7 @@
 /**
  * WireframeGlobe
  * Custom lat/long line geometry for authentic globe look
+ * Optimized: Uses merged geometry for fewer draw calls
  */
 import * as THREE from 'three';
 import { GLOBE_CONFIG } from './GlobeConfig.js';
@@ -8,17 +9,22 @@ import { GLOBE_CONFIG } from './GlobeConfig.js';
 export class WireframeGlobe {
   constructor() {
     this.group = new THREE.Group();
-    this.createLatitudeLines();
-    this.createLongitudeLines();
+    this.material = null;
+    this.createMergedGeometry();
   }
 
-  createLatitudeLines() {
-    const { radius, latLines, segments, globeColor, globeOpacity } = GLOBE_CONFIG;
-    const material = new THREE.LineBasicMaterial({
+  createMergedGeometry() {
+    const { radius, latLines, lonLines, segments, globeColor, globeOpacity } = GLOBE_CONFIG;
+
+    // Shared material for all lines
+    this.material = new THREE.LineBasicMaterial({
       color: globeColor,
       transparent: true,
       opacity: globeOpacity,
     });
+
+    // Collect all points for latitude and longitude lines
+    const allPoints = [];
 
     // Create latitude circles from -75 to 75 degrees
     for (let i = 0; i <= latLines; i++) {
@@ -27,49 +33,45 @@ export class WireframeGlobe {
       const circleRadius = radius * Math.sin(phi);
       const y = radius * Math.cos(phi);
 
-      const points = [];
-      for (let j = 0; j <= segments; j++) {
-        const theta = (j / segments) * Math.PI * 2;
-        points.push(new THREE.Vector3(
-          circleRadius * Math.cos(theta),
-          y,
-          circleRadius * Math.sin(theta)
-        ));
+      for (let j = 0; j < segments; j++) {
+        const theta1 = (j / segments) * Math.PI * 2;
+        const theta2 = ((j + 1) / segments) * Math.PI * 2;
+
+        allPoints.push(
+          circleRadius * Math.cos(theta1), y, circleRadius * Math.sin(theta1),
+          circleRadius * Math.cos(theta2), y, circleRadius * Math.sin(theta2)
+        );
       }
-
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const line = new THREE.Line(geometry, material);
-      this.group.add(line);
     }
-  }
-
-  createLongitudeLines() {
-    const { radius, lonLines, segments, globeColor, globeOpacity } = GLOBE_CONFIG;
-    const material = new THREE.LineBasicMaterial({
-      color: globeColor,
-      transparent: true,
-      opacity: globeOpacity,
-    });
 
     // Create longitude arcs
     for (let i = 0; i < lonLines; i++) {
       const lon = (360 / lonLines) * i;
       const theta = (lon + 180) * (Math.PI / 180);
 
-      const points = [];
-      for (let j = 0; j <= segments; j++) {
-        const phi = (j / segments) * Math.PI;
-        points.push(new THREE.Vector3(
-          -radius * Math.sin(phi) * Math.cos(theta),
-          radius * Math.cos(phi),
-          radius * Math.sin(phi) * Math.sin(theta)
-        ));
-      }
+      for (let j = 0; j < segments; j++) {
+        const phi1 = (j / segments) * Math.PI;
+        const phi2 = ((j + 1) / segments) * Math.PI;
 
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const line = new THREE.Line(geometry, material);
-      this.group.add(line);
+        allPoints.push(
+          -radius * Math.sin(phi1) * Math.cos(theta),
+          radius * Math.cos(phi1),
+          radius * Math.sin(phi1) * Math.sin(theta),
+          -radius * Math.sin(phi2) * Math.cos(theta),
+          radius * Math.cos(phi2),
+          radius * Math.sin(phi2) * Math.sin(theta)
+        );
+      }
     }
+
+    // Create single merged BufferGeometry
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(allPoints, 3));
+
+    // Use LineSegments for better performance with many line segments
+    const lines = new THREE.LineSegments(geometry, this.material);
+    lines.frustumCulled = false; // Globe is always visible when container is
+    this.group.add(lines);
   }
 
   getMesh() {
@@ -78,10 +80,13 @@ export class WireframeGlobe {
 
   dispose() {
     this.group.traverse((child) => {
-      if (child instanceof THREE.Line) {
+      if (child.geometry) {
         child.geometry.dispose();
-        child.material.dispose();
       }
     });
+
+    if (this.material) {
+      this.material.dispose();
+    }
   }
 }

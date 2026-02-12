@@ -1,6 +1,7 @@
 /**
  * GlobeScene
  * Main scene controller - camera, renderer, animation loop
+ * Optimized for performance
  */
 import * as THREE from 'three';
 import { CAMERA_CONFIG } from './GlobeConfig.js';
@@ -28,6 +29,20 @@ export class GlobeScene {
     this.animationId = null;
     this.observer = null;
 
+    // Performance optimizations
+    this.isMobile = window.innerWidth < 768;
+    this.targetFPS = this.isMobile ? 30 : 60;
+    this.frameInterval = 1000 / this.targetFPS;
+    this.lastFrameTime = 0;
+
+    // Cache container rect to avoid layout thrashing
+    this.containerRect = null;
+    this.resizeTimeout = null;
+
+    // Bound methods for proper cleanup
+    this.boundHandleResize = this.handleResize.bind(this);
+    this.boundAnimate = this.animate.bind(this);
+
     this.init();
   }
 
@@ -41,7 +56,7 @@ export class GlobeScene {
     this.setupVisibilityObserver();
     this.handleResize();
 
-    window.addEventListener('resize', this.handleResize.bind(this));
+    window.addEventListener('resize', this.boundHandleResize, { passive: true });
   }
 
   createCanvas() {
@@ -54,31 +69,31 @@ export class GlobeScene {
   createRenderer() {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
-      antialias: true,
-      alpha: true, // Transparent background
+      antialias: !this.isMobile, // Disable antialiasing on mobile for performance
+      alpha: true,
+      powerPreference: 'high-performance',
     });
 
-    // Cap pixel ratio at 2 for performance
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Lower pixel ratio on mobile for performance
+    const maxPixelRatio = this.isMobile ? 1.5 : 2;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
     this.renderer.setClearColor(0x000000, 0);
+
+    // Additional optimizations
+    this.renderer.sortObjects = false; // Disable sorting since we control render order
   }
 
   createScene() {
     this.scene = new THREE.Scene();
 
-    // Add subtle ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // Single ambient light is sufficient for wireframe
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     this.scene.add(ambientLight);
-
-    // Add directional light for subtle shading
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    directionalLight.position.set(5, 3, 5);
-    this.scene.add(directionalLight);
   }
 
   createCamera() {
     const { fov, near, far, position } = CAMERA_CONFIG;
-    const aspect = this.container.clientWidth / this.container.clientHeight;
+    const aspect = this.container.clientWidth / this.container.clientHeight || 1;
 
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     this.camera.position.set(position.x, position.y, position.z);
@@ -90,7 +105,7 @@ export class GlobeScene {
     this.globeGroup = new THREE.Group();
     this.scene.add(this.globeGroup);
 
-    // Create wireframe globe
+    // Create wireframe globe (already optimized for mobile in WireframeGlobe)
     this.wireframeGlobe = new WireframeGlobe();
     this.globeGroup.add(this.wireframeGlobe.getMesh());
 
@@ -133,19 +148,37 @@ export class GlobeScene {
   }
 
   handleResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
+    // Debounce resize for performance
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
 
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
+    this.resizeTimeout = setTimeout(() => {
+      const width = this.container.clientWidth;
+      const height = this.container.clientHeight;
 
-    this.renderer.setSize(width, height);
+      if (width === 0 || height === 0) return;
+
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
+
+      this.renderer.setSize(width, height);
+
+      // Update cached container rect
+      this.containerRect = this.container.getBoundingClientRect();
+    }, 100);
   }
 
   animate(currentTime) {
     if (!this.isRunning) return;
 
-    this.animationId = requestAnimationFrame(this.animate.bind(this));
+    this.animationId = requestAnimationFrame(this.boundAnimate);
+
+    // Frame rate limiting for mobile
+    const elapsed = currentTime - this.lastFrameTime;
+    if (elapsed < this.frameInterval) return;
+
+    this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
 
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
@@ -156,15 +189,14 @@ export class GlobeScene {
     // Update controls (handles auto-rotation)
     this.dragControls.update(clampedDelta);
 
-    // Update connection arcs animation
-    this.connectionArcs.update(clampedDelta);
-
     // Update globe group matrix for node projection
     this.globeGroup.updateMatrixWorld();
 
-    // Update package nodes positions
-    const containerRect = this.container.getBoundingClientRect();
-    this.packageNodes.update(this.globeGroup, containerRect);
+    // Update package nodes positions (use cached rect)
+    if (!this.containerRect) {
+      this.containerRect = this.container.getBoundingClientRect();
+    }
+    this.packageNodes.update(this.globeGroup, this.containerRect);
 
     // Render
     this.renderer.render(this.scene, this.camera);
@@ -175,6 +207,8 @@ export class GlobeScene {
 
     this.isRunning = true;
     this.lastTime = performance.now();
+    this.lastFrameTime = this.lastTime;
+    this.containerRect = this.container.getBoundingClientRect();
     this.animate(this.lastTime);
   }
 
@@ -191,19 +225,37 @@ export class GlobeScene {
 
     if (this.observer) {
       this.observer.disconnect();
+      this.observer = null;
     }
 
-    window.removeEventListener('resize', this.handleResize.bind(this));
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
 
+    window.removeEventListener('resize', this.boundHandleResize);
+
+    // Dispose Three.js objects
     this.wireframeGlobe?.dispose();
     this.connectionArcs?.dispose();
     this.packageNodes?.dispose();
     this.dragControls?.dispose();
 
-    this.renderer?.dispose();
+    // Dispose renderer
+    if (this.renderer) {
+      this.renderer.dispose();
+      this.renderer.forceContextLoss();
+      this.renderer = null;
+    }
 
+    // Remove canvas
     if (this.canvas && this.canvas.parentNode) {
       this.canvas.parentNode.removeChild(this.canvas);
+      this.canvas = null;
     }
+
+    // Clear references
+    this.scene = null;
+    this.camera = null;
+    this.globeGroup = null;
   }
 }

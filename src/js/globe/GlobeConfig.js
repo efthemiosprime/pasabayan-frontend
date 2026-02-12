@@ -11,12 +11,12 @@ export const GLOBE_CONFIG = {
   // Globe radius
   radius: 1,
 
-  // Latitude/longitude grid lines
-  get latLines() { return isMobile() ? 8 : 12; },
-  get lonLines() { return isMobile() ? 16 : 24; },
+  // Latitude/longitude grid lines (reduced on mobile)
+  get latLines() { return isMobile() ? 6 : 12; },
+  get lonLines() { return isMobile() ? 12 : 24; },
 
-  // Line segments for smooth curves
-  segments: 64,
+  // Line segments for smooth curves (reduced on mobile)
+  get segments() { return isMobile() ? 32 : 48; },
 
   // Colors - Black/gray wireframe
   globeColor: 0x2D3748,
