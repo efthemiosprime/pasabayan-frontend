@@ -678,7 +678,12 @@ img {
 .timeline {
   position: relative;
   padding: $spacing-8 0;
-  
+
+  // Remove margin from last card so timeline container encompasses all cards
+  .step-card:last-child {
+    margin-bottom: 0;
+  }
+
   &__svg {
     position: absolute;
     top: 0;
@@ -688,15 +693,15 @@ img {
     pointer-events: none;
     z-index: 0;
     display: none;
-    
+    overflow: visible; // Allow path to extend slightly outside if needed
+
     @include lg {
       display: block;
     }
   }
-  
-  &__path {
-    transition: stroke-dashoffset 0.05s linear;
 
+  &__path {
+    // No transition - path follows scroll instantly
     &--sender {
       stroke: $color-sender; // rgb(168, 85, 247)
     }

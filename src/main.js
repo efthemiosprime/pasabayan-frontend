@@ -143,36 +143,41 @@ class TimelinePathAnimator {
       this.pathLength = 0;
       return;
     }
-    
+
     const timeline = this.path.closest('.timeline');
+    const svg = this.path.closest('svg');
     const timelineRect = timeline.getBoundingClientRect();
+
+    // Set viewBox to match timeline dimensions for proper coordinate mapping
+    svg.setAttribute('viewBox', `0 0 ${timelineRect.width} ${timelineRect.height}`);
+
     const points = [];
-    
+
+    // Get timeline position once (more efficient)
+    const timelineScrollTop = timelineRect.top + window.scrollY;
+    const timelineScrollLeft = timelineRect.left + window.scrollX;
+
     this.cards.forEach((card) => {
       const marker = card.querySelector('.step-card__marker');
       if (!marker) return;
-      
-      // Use offsetTop/offsetLeft for stable positioning relative to timeline
-      // These are document-relative, not affected by scroll
+
       const markerRect = marker.getBoundingClientRect();
-      const timelineScrollTop = timeline.getBoundingClientRect().top + window.scrollY;
-      const timelineScrollLeft = timeline.getBoundingClientRect().left + window.scrollX;
-      
+
       const markerScrollTop = markerRect.top + window.scrollY;
       const markerScrollLeft = markerRect.left + window.scrollX;
-      
+
       const x = markerScrollLeft + markerRect.width / 2 - timelineScrollLeft;
       const y = markerScrollTop + markerRect.height / 2 - timelineScrollTop;
-      
+
       points.push({ x, y });
     });
-    
+
     if (points.length < 2) return;
-    
-    // Generate smooth curved path
+
+    // Generate smooth curved path through all points
     const pathD = this.generateCurvedPath(points);
     this.path.setAttribute('d', pathD);
-    
+
     // Get path length and set up dash animation
     this.pathLength = this.path.getTotalLength();
     this.path.style.strokeDasharray = this.pathLength;
@@ -181,47 +186,51 @@ class TimelinePathAnimator {
   
   generateCurvedPath(points) {
     if (points.length < 2) return '';
-    
+
     let d = `M ${points[0].x} ${points[0].y}`;
-    
+
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
       const curr = points[i];
-      
+
       // Calculate control points for smooth S-curve
       const midY = (prev.y + curr.y) / 2;
-      
+
       d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
     }
-    
+
+    // Extend path past the last point (curve down into the card)
+    const lastPoint = points[points.length - 1];
+    const extensionY = lastPoint.y + 120; // Extend 120px down
+    d += ` Q ${lastPoint.x} ${lastPoint.y + 60}, ${lastPoint.x + 40} ${extensionY}`;
+
     return d;
   }
   
   setupScrollAnimation() {
     const updatePath = () => {
       if (!this.pathLength || window.innerWidth < 1024) return;
-      
+
       const rect = this.section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const sectionTop = rect.top;
       const sectionHeight = rect.height;
-      
-      // Animation spans most of the section scroll
-      // Start: when section title is ~70% up the viewport
-      // End: when we've scrolled through ~80% of the section
-      const startTrigger = windowHeight * 0.7;
-      const scrollRange = sectionHeight * 0.75;
-      
-      // Calculate progress
-      const scrolled = startTrigger - sectionTop;
+
+      // Balanced animation - visible but synced with scroll
+      // Start: when section top reaches middle of viewport
+      // End: when we've scrolled through 85% of the section
+      const startPoint = windowHeight * 0.5;
+      const scrollRange = sectionHeight * 0.85;
+
+      // Calculate progress based on section position
+      const scrolled = startPoint - sectionTop;
       let progress = scrolled / scrollRange;
       progress = Math.max(0, Math.min(1, progress));
-      
+
       // Draw path
-      const drawLength = this.pathLength * progress;
-      this.path.style.strokeDashoffset = this.pathLength - drawLength;
+      this.path.style.strokeDashoffset = this.pathLength * (1 - progress);
     };
-    
+
     window.addEventListener('scroll', updatePath, { passive: true });
     updatePath();
   }
