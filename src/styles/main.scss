@@ -168,10 +168,15 @@ img {
 .hero {
   position: relative;
   min-height: 100vh;
-  padding: $spacing-32 0 $spacing-16;
+  padding: $spacing-20 0 $spacing-8;
   display: flex;
-  align-items: center;
+  align-items: flex-end; // Align content to bottom on mobile
   overflow: hidden;
+
+  @include md {
+    padding: $spacing-32 0 $spacing-16;
+    align-items: center;
+  }
 
   &__bg {
     position: absolute;
@@ -213,7 +218,19 @@ img {
   &__content {
     text-align: center;
     max-width: 1000px;
-    margin: 300px auto 0;
+    margin: 0 auto;
+    padding-top: 32vh; // Push text to overlap mid-globe on mobile
+    padding-bottom: $spacing-8;
+
+    @include sm {
+      padding-top: 30vh;
+    }
+
+    @include md {
+      padding-top: 0;
+      margin: 300px auto 0;
+      padding-bottom: 0;
+    }
   }
 
   &__title {

@@ -54,6 +54,7 @@ export const ANIMATION_CONFIG = {
 };
 
 // Package node positions (lat, lon in degrees, depth modifier)
+// Scattered around the globe at various latitudes
 export const NODE_POSITIONS = [
   { lat: 45, lon: -75, depth: 0.15, label: 'Toronto', isCenter: true },   // Central node
   { lat: 51, lon: -114, depth: 0.1, label: 'Calgary' },
@@ -63,17 +64,35 @@ export const NODE_POSITIONS = [
   { lat: 35, lon: 139, depth: 0.12, label: 'Tokyo' },
   { lat: 51, lon: 0, depth: 0.08, label: 'London' },
   { lat: -34, lon: 151, depth: 0.1, label: 'Sydney' },
+  // Additional nodes for better coverage
+  { lat: -23, lon: -46, depth: 0.1, label: 'São Paulo' },      // South America
+  { lat: 25, lon: 55, depth: 0.08, label: 'Dubai' },           // Middle East
+  { lat: 1, lon: 104, depth: 0.1, label: 'Singapore' },        // Southeast Asia
+  { lat: -1, lon: 37, depth: 0.08, label: 'Nairobi' },         // Africa
+  { lat: 55, lon: 37, depth: 0.1, label: 'Moscow' },           // Russia
+  { lat: 19, lon: -99, depth: 0.08, label: 'Mexico City' },    // Central America
 ];
 
 // Connection pairs (indices into NODE_POSITIONS)
+// More connections for a fuller network look
 export const CONNECTIONS = [
   [0, 1], // Toronto - Calgary
   [0, 2], // Toronto - Vancouver
   [0, 3], // Toronto - New York
   [0, 4], // Toronto - Manila
+  [0, 6], // Toronto - London
   [1, 2], // Calgary - Vancouver
   [3, 6], // New York - London
   [4, 5], // Manila - Tokyo
+  [4, 10], // Manila - Singapore
+  [5, 10], // Tokyo - Singapore
+  [6, 9], // London - Dubai
+  [6, 12], // London - Moscow
+  [7, 10], // Sydney - Singapore
+  [8, 13], // São Paulo - Mexico City
+  [3, 8], // New York - São Paulo
+  [9, 11], // Dubai - Nairobi
+  [0, 13], // Toronto - Mexico City
 ];
 
 // Responsive container sizing
