@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import { initGlobe } from './js/globe/index.js';
 
 // ================================
 // NAVBAR
@@ -302,6 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
   new ScrollReveal();
   new Parallax();
   new HeroAnimation();
+
+  // Initialize 3D Globe
+  initGlobe('globe-container');
   
   // Timeline path animators - initialize after a short delay for layout stability
   setTimeout(() => {

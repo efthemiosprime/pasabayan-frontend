@@ -1,0 +1,249 @@
+// ================================
+// GLOBE VISUALIZATION STYLES
+// ================================
+@use 'sass:color';
+@use 'variables' as *;
+
+// Globe container - full width background, centered
+.hero__globe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+  max-height: 700px;
+  z-index: 1;
+  pointer-events: auto;
+
+  @media (min-width: $breakpoint-md) {
+    max-width: 800px;
+    max-height: 800px;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    max-width: 900px;
+    max-height: 900px;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    max-width: 1000px;
+    max-height: 1000px;
+  }
+}
+
+// Canvas element
+.globe-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; // Let container handle events
+}
+
+// Nodes container
+.globe-nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+// Individual node
+.globe-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.05s linear, opacity 0.15s ease;
+  will-change: transform, opacity;
+
+  @media (min-width: $breakpoint-md) {
+    width: 48px;
+    height: 48px;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    width: 56px;
+    height: 56px;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background: $color-white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow-md;
+    transition: transform $transition-fast, box-shadow $transition-fast;
+    position: relative;
+    z-index: 2;
+
+    @media (min-width: $breakpoint-md) {
+      width: 32px;
+      height: 32px;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      width: 36px;
+      height: 36px;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      color: $color-sender;
+
+      @media (min-width: $breakpoint-md) {
+        width: 18px;
+        height: 18px;
+      }
+
+      @media (min-width: $breakpoint-lg) {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  &__pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba($color-sender, 0.2);
+    animation: node-pulse 2s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  &__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(#8B5CF6, 0.4) 0%,
+      rgba(#8B5CF6, 0.1) 50%,
+      transparent 70%
+    );
+    animation: glow-pulse 2.5s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  // Hover state
+  &:hover {
+    .globe-node__icon {
+      transform: scale(1.15);
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  // Center node (highlighted)
+  &--center {
+    .globe-node__icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      box-shadow: 0 0 25px rgba(#8B5CF6, 0.6), $shadow-lg;
+
+      @media (min-width: $breakpoint-md) {
+        width: 44px;
+        height: 44px;
+      }
+
+      @media (min-width: $breakpoint-lg) {
+        width: 52px;
+        height: 52px;
+        box-shadow: 0 0 35px rgba(#8B5CF6, 0.6), $shadow-lg;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+        color: $color-white;
+
+        @media (min-width: $breakpoint-md) {
+          width: 24px;
+          height: 24px;
+        }
+
+        @media (min-width: $breakpoint-lg) {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+
+    .globe-node__pulse {
+      background: rgba(#8B5CF6, 0.3);
+      animation: node-pulse-center 2.5s ease-in-out infinite;
+    }
+  }
+}
+
+// Pulse animation
+@keyframes node-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes node-pulse-center {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+// Glow animation for center node
+@keyframes glow-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+// Grab cursor for container when globe is present
+#globe-container {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}

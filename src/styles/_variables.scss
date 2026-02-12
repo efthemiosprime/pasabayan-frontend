@@ -1,15 +1,17 @@
-// Colors
-$color-primary: #1a365d;
-$color-primary-light: #2a4a7f;
-$color-primary-dark: #0f2340;
+// Colors - Black & White theme
+$color-primary: #1A202C;
+$color-primary-light: #2D3748;
+$color-primary-dark: #171923;
 
-$color-sender: #F56565;
-$color-sender-light: #FEB2B2;
-$color-sender-bg: #FFF5F5;
+// Sender: Purple/Violet theme
+$color-sender: #A855F7;
+$color-sender-light: #C084FC;
+$color-sender-bg: #F3E8FF;
 
-$color-carrier: #38B2AC;
-$color-carrier-light: #81E6D9;
-$color-carrier-bg: #E6FFFA;
+// Carrier: Blue theme
+$color-carrier: #3B82F6;
+$color-carrier-light: #60A5FA;
+$color-carrier-bg: #DBEAFE;
 
 $color-white: #ffffff;
 $color-gray-50: #F7FAFC;
@@ -35,7 +37,7 @@ $font-size-2xl: 1.5rem;    // 24px
 $font-size-3xl: 1.875rem;  // 30px
 $font-size-4xl: 2.25rem;   // 36px
 $font-size-5xl: 3rem;      // 48px
-$font-size-6xl: 3.75rem;   // 60px
+$font-size-6xl: 3.5rem;   // 60px
 
 $font-weight-normal: 400;
 $font-weight-medium: 500;
