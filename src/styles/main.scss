@@ -63,7 +63,7 @@ img {
   
   &__logo {
     @include flex-start;
-    gap: $spacing-2;
+    gap: 0;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-primary;
