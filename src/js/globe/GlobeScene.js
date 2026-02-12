@@ -108,7 +108,10 @@ export class GlobeScene {
       this.globeGroup.rotation.y = rotation.y;
     });
 
-    this.container.style.cursor = 'grab';
+    // Only show grab cursor on desktop (where drag is enabled)
+    if (!this.dragControls.isMobile) {
+      this.container.style.cursor = 'grab';
+    }
   }
 
   setupVisibilityObserver() {

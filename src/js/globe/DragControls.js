@@ -16,22 +16,26 @@ export class DragControls {
     this.autoRotate = true;
     this.autoResumeTimeout = null;
 
+    // Detect mobile/touch devices
+    this.isMobile = window.matchMedia('(max-width: 768px)').matches ||
+                    'ontouchstart' in window;
+
     this.init();
   }
 
   init() {
-    // Mouse events
-    this.element.addEventListener('mousedown', this.onDragStart.bind(this));
-    window.addEventListener('mousemove', this.onDragMove.bind(this));
-    window.addEventListener('mouseup', this.onDragEnd.bind(this));
+    // Mouse events (desktop only)
+    if (!this.isMobile) {
+      this.element.addEventListener('mousedown', this.onDragStart.bind(this));
+      window.addEventListener('mousemove', this.onDragMove.bind(this));
+      window.addEventListener('mouseup', this.onDragEnd.bind(this));
 
-    // Touch events
-    this.element.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: false });
-    window.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
-    window.addEventListener('touchend', this.onDragEnd.bind(this));
+      // Prevent context menu on long press
+      this.element.addEventListener('contextmenu', (e) => e.preventDefault());
+    }
 
-    // Prevent context menu on long press
-    this.element.addEventListener('contextmenu', (e) => e.preventDefault());
+    // Skip touch events on mobile to allow page scrolling
+    // Globe will auto-rotate only on mobile
   }
 
   onDragStart(e) {

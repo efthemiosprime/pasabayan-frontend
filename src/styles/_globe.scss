@@ -15,7 +15,13 @@
   max-width: 700px;
   max-height: 700px;
   z-index: 1;
-  pointer-events: auto;
+
+  // Allow touch scrolling on mobile, enable interaction on desktop
+  pointer-events: none;
+
+  @media (min-width: $breakpoint-md) {
+    pointer-events: auto;
+  }
 
   @media (min-width: $breakpoint-md) {
     max-width: 800px;
@@ -238,12 +244,22 @@
 
 // Grab cursor for container when globe is present
 #globe-container {
-  cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: none;
 
-  &:active {
-    cursor: grabbing;
+  // Only enable drag interaction on desktop
+  @media (min-width: $breakpoint-md) {
+    cursor: grab;
+    touch-action: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  // Allow scrolling on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    touch-action: auto;
+    pointer-events: none;
   }
 }
