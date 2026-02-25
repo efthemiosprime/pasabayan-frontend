@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Your Data - Pasabayan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .last-updated {
+            color: #666666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .accordion {
+            background-color: #f5f5f7;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #d2d2d7;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: #e8e8ed;
+        }
+
+        .accordion-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .accordion-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            color: #666666;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content-inner {
+            padding: 0 20px 20px 20px;
+            color: #333333;
+            font-size: 15px;
+        }
+
+        .accordion-content-inner p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-content-inner ul,
+        .accordion-content-inner ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .accordion-content-inner li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Your Data</h1>
+        <p class="last-updated">Last updated: October 2025</p>
+
+        <div class="accordion active">
+            <div class="accordion-header">
+                <div class="accordion-title">1. How to Delete Your Account</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content" style="max-height: 1000px;">
+                <div class="accordion-content-inner">
+                    <p>You can request deletion of your Pasabayan account and associated data at any time. Follow these steps:</p>
+                    <ol>
+                        <li>Open the Pasabayan app and log in to your account</li>
+                        <li>Go to <strong>Settings</strong> from the menu</li>
+                        <li>Tap <strong>Account</strong></li>
+                        <li>Tap <strong>Delete Account</strong></li>
+                        <li>Confirm your identity when prompted</li>
+                        <li>Confirm that you want to permanently delete your account</li>
+                    </ol>
+                    <p>Alternatively, you can request account deletion by emailing <strong>support@pasabayan.com</strong> from the email address associated with your account.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">2. What Data Gets Deleted</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>When you delete your account, the following data will be permanently removed:</p>
+                    <ul>
+                        <li>Your profile information (name, email, phone number, avatar)</li>
+                        <li>Your saved addresses and preferences</li>
+                        <li>Your payment methods</li>
+                        <li>Your in-app messages and conversations</li>
+                        <li>Your ratings and reviews</li>
+                        <li>Your vehicle information (if registered as a carrier)</li>
+                        <li>Push notification tokens and device identifiers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">3. What Data May Be Retained</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Certain data may be retained for a limited period after account deletion for legal, safety, or business reasons:</p>
+                    <ul>
+                        <li><strong>Transaction records:</strong> Payment and delivery history may be retained for up to 7 years as required by financial regulations</li>
+                        <li><strong>Safety records:</strong> Reports related to fraud, abuse, or safety incidents may be retained to protect the community</li>
+                        <li><strong>Legal obligations:</strong> Data required to comply with applicable laws, regulations, or legal proceedings</li>
+                    </ul>
+                    <p>Retained data will be anonymized where possible and will not be used for marketing purposes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">4. Processing Time</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Account deletion requests are processed as follows:</p>
+                    <ul>
+                        <li><strong>In-app requests:</strong> Your account will be deactivated immediately and data deletion will be completed within 30 days</li>
+                        <li><strong>Email requests:</strong> We will verify your identity and process the request within 30 days of receiving it</li>
+                    </ul>
+                    <p>You will receive an email confirmation once your data has been deleted. During the processing period, your account will be deactivated and inaccessible.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">5. Before You Delete</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Please note the following before deleting your account:</p>
+                    <ul>
+                        <li>Account deletion is <strong>permanent and cannot be undone</strong></li>
+                        <li>Any pending deliveries must be completed or cancelled before deletion</li>
+                        <li>Outstanding payments or balances must be settled</li>
+                        <li>You will lose access to your delivery history and receipts</li>
+                        <li>If you wish to use Pasabayan again, you will need to create a new account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">6. Third-Party Data</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>If you signed up using a third-party service (Google, Facebook, or Apple):</p>
+                    <ul>
+                        <li>Deleting your Pasabayan account does not affect your third-party account</li>
+                        <li>To revoke Pasabayan's access, visit your third-party account's app permissions settings</li>
+                        <li>Data held by third-party services is subject to their own privacy policies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">7. Contact Us</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>If you have questions about data deletion or need assistance, please contact us:</p>
+                    <p><strong>Email:</strong> support@pasabayan.com</p>
+                    <p>We will respond to your inquiry within 30 days as required by privacy laws.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const accordion = this.parentElement;
+                const content = accordion.querySelector('.accordion-content');
+                const isActive = accordion.classList.contains('active');
+
+                // Close all accordions
+                document.querySelectorAll('.accordion').forEach(acc => {
+                    acc.classList.remove('active');
+                    acc.querySelector('.accordion-content').style.maxHeight = null;
+                });
+
+                // Open clicked accordion if it wasn't active
+                if (!isActive) {
+                    accordion.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
