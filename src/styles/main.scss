@@ -369,10 +369,22 @@ img {
     border-radius: 50%;
     @include flex-center;
     margin: 0 auto $spacing-6;
-    
+
     svg {
       width: 40px;
       height: 40px;
+    }
+  }
+
+  &__preview {
+    margin: 0 auto $spacing-6;
+    max-width: 260px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: $radius-lg;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
   }
   
