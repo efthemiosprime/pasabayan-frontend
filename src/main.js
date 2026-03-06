@@ -322,6 +322,62 @@ document.addEventListener('DOMContentLoaded', () => {
     new TimelinePathAnimator('.journey--carrier', '.timeline__path--carrier');
   }, 50);
   
+  // Waitlist form
+  const waitlistForm = document.getElementById('waitlist-form');
+  if (waitlistForm) {
+    waitlistForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(waitlistForm);
+      const emailInput = waitlistForm.querySelector('.waitlist__input');
+      const button = waitlistForm.querySelector('.waitlist__button');
+      const messageEl = document.getElementById('waitlist-message');
+
+      button.textContent = 'Submitting...';
+      button.disabled = true;
+      emailInput.disabled = true;
+
+      try {
+        const res = await fetch('https://api.pasabayan.com/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.get('email'),
+            website: formData.get('website'),
+          }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          const waitlistSection = waitlistForm.closest('.waitlist');
+          waitlistSection.innerHTML = `
+            <div class="waitlist__confirmation">
+              <svg class="waitlist__check-icon" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/>
+                <path d="M20 32L28 40L44 24" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h2 class="waitlist__title">You're on the List!</h2>
+              <p class="waitlist__subtitle">${data.message || "Thanks for signing up! We'll notify you as soon as Pasabayan is ready to launch."}</p>
+              <p class="waitlist__hint">Keep an eye on your inbox for updates.</p>
+            </div>
+          `;
+        } else {
+          messageEl.textContent = data.message || data.errors?.email?.[0] || 'Something went wrong.';
+          messageEl.className = 'waitlist__message waitlist__message--error';
+          button.disabled = false;
+          emailInput.disabled = false;
+        }
+      } catch {
+        messageEl.textContent = 'Network error. Please try again.';
+        messageEl.className = 'waitlist__message waitlist__message--error';
+        button.disabled = false;
+        emailInput.disabled = false;
+      }
+
+      button.textContent = 'Notify Me';
+    });
+  }
+
   // Add visible class to elements already in view on page load
   setTimeout(() => {
     const cards = document.querySelectorAll('.step-card, .feature-card, .role-card, .founder-card');
