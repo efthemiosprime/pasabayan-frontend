@@ -243,15 +243,28 @@ img {
   }
 
   &__subtitle {
-    @include body-text;
-    color: $color-gray-600;
+    font-size: $font-size-xl;
+    line-height: $line-height-relaxed;
+    color: $color-gray-700;
     margin-bottom: $spacing-8;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 
-    // Add subtle text shadow for better readability over globe
-    text-shadow: 0 1px 10px rgba($color-white, 0.9);
+    // Add text shadow for readability over globe
+    text-shadow: 0 0 20px rgba($color-white, 1), 0 0 40px rgba($color-white, 0.8);
+  }
+
+  &__services {
+    margin-top: 0;
+    margin-bottom: $spacing-6;
+    font-size: 0.9rem;
+    color: $color-gray-600;
+    text-shadow: 0 0 20px rgba($color-white, 1), 0 0 40px rgba($color-white, 0.8);
+
+    span:not([aria-hidden]) {
+      margin: 0 0.15rem;
+    }
   }
 
   &__ctas {
