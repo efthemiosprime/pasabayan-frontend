@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         'privacy-policy': resolve(__dirname, 'privacy-policy/index.html'),
+        'terms-of-service': resolve(__dirname, 'terms-of-service/index.html'),
         'data-delete-instructions': resolve(__dirname, 'data-delete-instructions/index.html'),
       },
     },
