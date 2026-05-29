@@ -85,7 +85,7 @@ class SmoothScroll {
 // ================================
 class ScrollReveal {
   constructor() {
-    this.elements = document.querySelectorAll('.step-card, .feature-card, .role-card, .founder-card');
+    this.elements = document.querySelectorAll('.step-card, .feature-card, .role-card, .founder-card, .story__panel');
     this.init();
   }
   
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add visible class to elements already in view on page load
   setTimeout(() => {
-    const cards = document.querySelectorAll('.step-card, .feature-card, .role-card, .founder-card');
+    const cards = document.querySelectorAll('.step-card, .feature-card, .role-card, .founder-card, .story__panel');
     cards.forEach(card => {
       const rect = card.getBoundingClientRect();
       if (rect.top < window.innerHeight * 0.85) {
