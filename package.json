@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync:snapflow": "cd ../../snap-flow && npm run build && rm -rf ../pasabayan/pasabayan-frontend/public/snapflow && mkdir -p ../pasabayan/pasabayan-frontend/public/snapflow && cp -r dist/* ../pasabayan/pasabayan-frontend/public/snapflow/"
   },
   "devDependencies": {
     "sass": "^1.69.5",
