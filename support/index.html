@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Pasabayan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .subtitle {
+            color: #666666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 30px 0 16px 0;
+            color: #000000;
+        }
+
+        .contact-card {
+            background-color: #f5f5f7;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 12px;
+        }
+
+        .contact-card .label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #666666;
+            margin-bottom: 4px;
+        }
+
+        .contact-card .value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .contact-card .value a {
+            color: #0071e3;
+            text-decoration: none;
+        }
+
+        .contact-card .value a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-card .note {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 8px;
+        }
+
+        .accordion {
+            background-color: #f5f5f7;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #d2d2d7;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: #e8e8ed;
+        }
+
+        .accordion-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .accordion-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            color: #666666;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content-inner {
+            padding: 0 20px 20px 20px;
+            color: #333333;
+            font-size: 15px;
+        }
+
+        .accordion-content-inner p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-content-inner ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .accordion-content-inner li {
+            margin-bottom: 8px;
+        }
+
+        .accordion-content-inner a {
+            color: #0071e3;
+            text-decoration: none;
+        }
+
+        .accordion-content-inner a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #d2d2d7;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .footer-links a {
+            color: #0071e3;
+            text-decoration: none;
+            margin-right: 16px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Support</h1>
+        <p class="subtitle">Need a hand? We're here to help you ship, carry, and travel with confidence.</p>
+
+        <div class="contact-card">
+            <div class="label">Email us</div>
+            <div class="value"><a href="mailto:support@pasabayan.com">support@pasabayan.com</a></div>
+            <div class="note">We typically respond within 24&ndash;48 hours. For account or security issues, please include the email address associated with your account.</div>
+        </div>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="accordion active">
+            <div class="accordion-header">
+                <div class="accordion-title">What is Pasabayan?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content" style="max-height: 1000px;">
+                <div class="accordion-content-inner">
+                    <p>Pasabayan connects shippers who need to send packages with travelers and carriers heading the same way. Shippers get an affordable, flexible delivery option, and carriers earn money by making use of the space they already have.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">How do I create an account?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Download the Pasabayan app, then sign up with your email, phone number, or a social login (Google, Apple, or Facebook). You'll verify your phone number with a one-time code, and can complete your profile from there.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">How does payment work?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Payments are processed securely through Stripe. Shippers pay through the app when a delivery is arranged, and carrier payouts are released after the delivery is confirmed complete. We never store your full card details on our servers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">How do I track my delivery?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Once a carrier accepts your package and a delivery is active, you can follow its progress in real time from the app. You'll also receive in-app messages and notifications at key milestones such as pickup and drop-off.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">Is my package and personal information safe?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Safety is core to Pasabayan. Users verify their phone numbers, and premium verification with a government-issued ID is available for added trust. All data is encrypted in transit, and we apply industry-standard safeguards to protect your information. Read more in our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">What should I do if there's a problem with a delivery?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>If something goes wrong &mdash; a package is delayed, damaged, or a delivery doesn't go as planned &mdash; reach out to us right away at <a href="mailto:support@pasabayan.com">support@pasabayan.com</a> with your delivery details. Our team will help resolve the issue as quickly as possible.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header">
+                <div class="accordion-title">How do I delete my account or data?</div>
+                <div class="accordion-icon">&#9660;</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>You can request deletion of your account and associated data at any time. Follow our <a href="/data-delete-instructions/">data deletion instructions</a>, or email <a href="mailto:support@pasabayan.com">support@pasabayan.com</a> and we'll take care of it.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/terms-of-service/">Terms of Service</a>
+            <a href="/data-delete-instructions/">Delete Data</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const accordion = this.parentElement;
+                const content = accordion.querySelector('.accordion-content');
+                const isActive = accordion.classList.contains('active');
+
+                // Close all accordions
+                document.querySelectorAll('.accordion').forEach(acc => {
+                    acc.classList.remove('active');
+                    acc.querySelector('.accordion-content').style.maxHeight = null;
+                });
+
+                // Open clicked accordion if it wasn't active
+                if (!isActive) {
+                    accordion.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

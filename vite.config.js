@@ -52,6 +52,7 @@ export default defineConfig({
         'privacy-policy': resolve(__dirname, 'privacy-policy/index.html'),
         'terms-of-service': resolve(__dirname, 'terms-of-service/index.html'),
         'data-delete-instructions': resolve(__dirname, 'data-delete-instructions/index.html'),
+        'support': resolve(__dirname, 'support/index.html'),
       },
     },
   },
