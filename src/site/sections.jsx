@@ -7,7 +7,7 @@ import { HeroSearch, useListingSearch } from "./heroSearch.jsx";
 import { HeroSearchResults } from "./heroSearchResults.jsx";
 
 export function SiteNav() {
-  const links = [["How it works", "#how-it-works"], ["Why Pasabayan", "#why"], ["For shippers", "#app"], ["For carriers", "#carriers"], ["Trust & safety", "#trust"]];
+  const links = [["How it works", "#how-it-works"], ["Why Pasabayan", "#why"], ["For senders", "#app"], ["For carriers", "#carriers"], ["Trust & safety", "#trust"]];
   return (
     <nav style={{ position: "sticky", top: 0, zIndex: 40, background: "rgba(255,255,255,.82)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderBottom: "1px solid var(--border)" }}>
       <div className="wrap" style={{ display: "flex", alignItems: "center", gap: 20, height: "var(--site-nav-h)" }}>
@@ -245,7 +245,7 @@ export function Faq() {
   const qs = [
     ["How does payment work?", "You pay when a booking is confirmed. Pasabayan holds the funds in escrow and releases them to the carrier only after the delivery code is confirmed. Eligible cancellations are refunded."],
     ["How do I get verified?", "Verification happens in tiers: email, then phone, with an optional government-ID review. Higher tiers get a premium badge and priority in search results."],
-    ["What are handoff codes?", "Every pickup and delivery is sealed with a one-time code shared between shipper and carrier. No matching code, no handoff — so there's always proof it happened."],
+    ["What are handoff codes?", "Every pickup and delivery is sealed with a one-time code shared between sender and carrier. No matching code, no handoff — so there's always proof it happened."],
     ["Can I send errands instead of packages?", "Yes. Alongside packages you can request grocery, pharmacy, food delivery or general errands. Carriers submit receipts and expenses in-chat for your approval."],
     ["What happens if something goes wrong?", "Open the payment details to request a refund. Structured refund and dispute resolution gives you a clear path to recourse, with our team reviewing the case."],
   ];
@@ -329,7 +329,7 @@ export function SiteFooter() {
           <span style={{ display: "inline-flex", alignItems: "center", gap: 9, color: "#fff", font: "var(--weight-bold) 17px var(--font-system)", letterSpacing: "-.03em" }}>
             <img src="/logo-white.svg" alt="" style={{ height: 22, width: "auto" }} />Pasabayan
           </span>
-          <span>Connecting shippers with travelers, one package at a time.</span>
+          <span>Connecting senders with travelers, one package at a time.</span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 16 }}>
             © 2026 Pasabayan. All rights reserved.
             {social.map(([label, href, d]) => (

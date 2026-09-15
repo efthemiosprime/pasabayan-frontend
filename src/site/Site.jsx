@@ -6,18 +6,18 @@ import { MatchesScreen, BookingDetail, ChatScreen, PackagesScreen, TripsScreen, 
 import { SiteNav, Hero, Comparison, EarningsSim, SendRules, Trust, Faq, SiteFooter } from "./sections.jsx";
 
 export const JOURNEY = [
-  { role: "Shipper", tab: "packages", title: "Post what you're sending", body: "Five required steps: what it is, pickup, handoff, weight, dates. Add photos, a declared value, and your budget limit — packages or errands like grocery, pharmacy and food.", tags: ["Photo upload", "Declared value", "Flexible dates"], screen: (p) => <CreateWizard p={p} /> },
-  { role: "Shipper", tab: "explore", title: "Browse carriers headed your way", body: "Real trips with real dates, available weight and a price per kilo. See who's online nearby, filter to Pasabuy requests, and request to book in one tap.", tags: ["Route matching", "Online now", "$/kg pricing"], screen: (p) => <ExploreCarriers p={p} /> },
-  { role: "Carrier", tab: "explore", title: "Carriers see your package too", body: "From the other side of the app the same request appears in Find Packages — category, priority, weight and budget, with the shipper's rating and verified seal.", tags: ["You choose", "No obligations", "Urgent / Fragile"], screen: (p) => <ExplorePackages p={p} /> },
-  { role: "Both", tab: "matches", title: "A match appears for both of you", body: "Requests become bookings with a status you can read at a glance: carrier requested, shipper requested, confirmed. Overdue pickups surface at the top of the card.", tags: ["Status filters", "Counter-offers", "Auto-cancel guard"], screen: (p) => <MatchesScreen p={p} /> },
-  { role: "Shipper", tab: "matches", title: "Confirm, then pay into escrow", body: "Trip, package, carrier and payment on one screen against your budget limit. Paying doesn't pay the carrier — it holds the money until delivery is confirmed.", tags: ["Escrow held", "Budget limit", "Progress timeline"], screen: (p) => <BookingDetail status="confirmed" p={p} /> },
+  { role: "Sender", tab: "packages", title: "Post what you're sending", body: "Five required steps: what it is, pickup, handoff, weight, dates. Add photos, a declared value, and your budget limit — packages or errands like grocery, pharmacy and food.", tags: ["Photo upload", "Declared value", "Flexible dates"], screen: (p) => <CreateWizard p={p} /> },
+  { role: "Sender", tab: "explore", title: "Browse carriers headed your way", body: "Real trips with real dates, available weight and a price per kilo. See who's online nearby, filter to Pasabuy requests, and request to book in one tap.", tags: ["Route matching", "Online now", "$/kg pricing"], screen: (p) => <ExploreCarriers p={p} /> },
+  { role: "Carrier", tab: "explore", title: "Carriers see your package too", body: "From the other side of the app the same request appears in Find Packages — category, priority, weight and budget, with the sender's rating and verified seal.", tags: ["You choose", "No obligations", "Urgent / Fragile"], screen: (p) => <ExplorePackages p={p} /> },
+  { role: "Both", tab: "matches", title: "A match appears for both of you", body: "Requests become bookings with a status you can read at a glance: carrier requested, sender requested, confirmed. Overdue pickups surface at the top of the card.", tags: ["Status filters", "Counter-offers", "Auto-cancel guard"], screen: (p) => <MatchesScreen p={p} /> },
+  { role: "Sender", tab: "matches", title: "Confirm, then pay into escrow", body: "Trip, package, carrier and payment on one screen against your budget limit. Paying doesn't pay the carrier — it holds the money until delivery is confirmed.", tags: ["Escrow held", "Budget limit", "Progress timeline"], screen: (p) => <BookingDetail status="confirmed" p={p} /> },
   { role: "Both", tab: "messages", title: "Coordinate the handoff on the record", body: "Chat stays in the app, with system messages for every money event. One-time codes seal the pickup, so there's always proof it actually happened.", tags: ["Escrow receipts", "Handoff codes", "Fraud detection"], screen: (p) => <ChatScreen p={p} /> },
-  { role: "Shipper", tab: "matches", title: "Follow it while it moves", body: "The timeline walks from requested to delivered. When the carrier arrives, the shipper generates a delivery code — or shares it straight with the receiver.", tags: ["In transit", "Delivery code", "Share with receiver"], screen: (p) => <BookingDetail status="in_transit" p={p} /> },
+  { role: "Sender", tab: "matches", title: "Follow it while it moves", body: "The timeline walks from requested to delivered. When the carrier arrives, the sender generates a delivery code — or shares it straight with the receiver.", tags: ["In transit", "Delivery code", "Share with receiver"], screen: (p) => <BookingDetail status="in_transit" p={p} /> },
   { role: "Carrier", tab: "profile", title: "Delivered — and the payout releases", body: "Code confirmed, escrow released, both sides rate each other. Reputation compounds: verified ID, a gold star badge and priority in search results.", tags: ["Fast payout", "Two-sided reviews", "Verification tiers"], screen: () => <ProfileScreen role="carrier" /> },
 ];
 
 export function RoleChip({ role }) {
-  const tone = role === "Carrier" ? { bg: "var(--role-carrier-tint)", fg: "var(--role-carrier)" } : role === "Shipper" ? { bg: "var(--role-sender-tint)", fg: "var(--role-sender)" } : { bg: "var(--gray-6)", fg: "var(--text-secondary)" };
+  const tone = role === "Carrier" ? { bg: "var(--role-carrier-tint)", fg: "var(--role-carrier)" } : role === "Sender" ? { bg: "var(--role-sender-tint)", fg: "var(--role-sender)" } : { bg: "var(--gray-6)", fg: "var(--text-secondary)" };
   return <span style={{ display: "inline-flex", alignItems: "center", gap: 6, background: tone.bg, color: tone.fg, borderRadius: 999, padding: "5px 12px", font: "var(--weight-semibold) 12px var(--font-system)", letterSpacing: ".02em" }}>{role === "Both" ? "Both sides" : role}</span>;
 }
 
@@ -131,7 +131,7 @@ export function TabTour() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(300px,100%),1fr))", gap: "clamp(24px,5vw,64px)", alignItems: "center", marginTop: 36 }}>
         <div>
           <div style={{ display: "inline-flex", background: "var(--gray-6)", borderRadius: 999, padding: 4 }}>
-            {[["shipper", "Shipper"], ["carrier", "Carrier"]].map(([id, l]) => (
+            {[["shipper", "Sender"], ["carrier", "Carrier"]].map(([id, l]) => (
               <button key={id} type="button" aria-pressed={role === id} onClick={() => setRole(id)} style={{ border: "none", background: role === id ? "var(--background)" : "transparent", boxShadow: role === id ? "0 1px 3px rgba(0,0,0,.12)" : "none", borderRadius: 999, padding: "9px 20px", font: "var(--weight-semibold) 14px var(--font-system)", cursor: "pointer", color: "var(--text-primary)" }}>{l}</button>
             ))}
           </div>
