@@ -19,7 +19,7 @@ export function MatchesScreen({ p = 1, role = "shipper" }) {
       <div style={{ display: "flex", gap: 8, padding: "10px 16px", overflow: "hidden", borderBottom: "1px solid var(--border)" }}>
         <APill tone="dark" count="4">All</APill>
         <APill tone="grey" count="1">Carrier Requested</APill>
-        <APill tone="grey" count="0">Shipper Requested</APill>
+        <APill tone="grey" count="0">Sender Requested</APill>
       </div>
       <Body style={{ padding: "12px 16px 0" }}>
         <Rise t={rev(p, 0.05, 0.3)}>
@@ -79,7 +79,7 @@ export function MatchesScreen({ p = 1, role = "shipper" }) {
   );
 }
 
-export const TL_STEPS = ["Shipper Requested", "Booking confirmed", "Picked up", "On the way", "Delivered"];
+export const TL_STEPS = ["Sender Requested", "Booking confirmed", "Picked up", "On the way", "Delivered"];
 
 export function BookingDetail({ status = "confirmed", p = 1 }) {
   const cfg = {
@@ -262,7 +262,7 @@ export function ProfileScreen({ role = "shipper" }) {
               <div style={{ display: "flex", alignItems: "center", gap: 6, font: "var(--weight-bold) 19px var(--font-system)" }}>Maria Santos<VerifiedSeal size={16} /></div>
               <div style={{ ...A_META }}>maria@example.com</div>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 5, marginTop: 5, background: "var(--blue-light)", color: "var(--info)", borderRadius: 999, padding: "4px 10px", font: "var(--weight-semibold) 12px var(--font-system)" }}>
-                <Icon name={role === "shipper" ? "send" : "box"} size={12} />{role === "shipper" ? "Shipper" : "Carrier"}<Icon name="chevron-down" size={12} />
+                <Icon name={role === "shipper" ? "send" : "box"} size={12} />{role === "shipper" ? "Sender" : "Carrier"}<Icon name="chevron-down" size={12} />
               </span>
             </div>
           </div>

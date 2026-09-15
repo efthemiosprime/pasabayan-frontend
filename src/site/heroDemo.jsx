@@ -198,7 +198,7 @@ function ExploreScene({ x }) {
       <div style={{ height: 48, flex: "none", display: "flex", alignItems: "center", padding: "0 16px" }}>
         <span style={{ width: 32, height: 32, borderRadius: "50%", background: "#C7C7CC", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 0 1px rgba(60,60,67,.12)" }}><Icon name="user" size={18} fill="#fff" stroke="#fff" /></span>
         <span style={{ marginLeft: 6, display: "inline-flex", alignItems: "center", gap: 3, padding: "4px 8px", borderRadius: 999, background: "rgba(175,82,222,.15)", border: "1px solid rgba(175,82,222,.2)", color: "#AF52DE", font: sf(600, 11) }}>
-          <Icon name="send" size={9} fill="#AF52DE" strokeWidth={2.6} />Shipper<Icon name="arrow-left-right" size={9} strokeWidth={3} />
+          <Icon name="send" size={9} fill="#AF52DE" strokeWidth={2.6} />Sender<Icon name="arrow-left-right" size={9} strokeWidth={3} />
         </span>
         <span style={{ flex: 1 }} />
         <span style={{ position: "relative", padding: 6, display: "inline-flex" }}>
@@ -397,7 +397,7 @@ function MatchesScene({ t }) {
   return (
     <>
       <Notice>Matches with carriers for your package requests.</Notice>
-      <StatusRow chips={<><Chip on count={1}>All</Chip><Chip count={confirmed ? 0 : 1}>Shipper Requested</Chip><Chip count={confirmed ? 1 : 0}>Booking Confirmed</Chip></>} />
+      <StatusRow chips={<><Chip on count={1}>All</Chip><Chip count={confirmed ? 0 : 1}>Sender Requested</Chip><Chip count={confirmed ? 1 : 0}>Booking Confirmed</Chip></>} />
       <div style={{ padding: "12px 16px 0" }}>
         <ACard style={{ opacity: ease(rev(t, 0.445, 0.475)), transform: `translateY(${(1 - ease(rev(t, 0.445, 0.475))) * 14}px)` }}>
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
@@ -406,7 +406,7 @@ function MatchesScene({ t }) {
               <div style={{ ...A_META, marginTop: 1 }}>Important documents</div>
             </div>
             <span style={{ transform: `scale(${confirmed ? 0.9 + 0.1 * flip : 1})`, display: "inline-flex" }}>
-              {confirmed ? <APill tone="blueSoft">Booking confirmed</APill> : <APill tone="orange">Shipper requested</APill>}
+              {confirmed ? <APill tone="blueSoft">Booking confirmed</APill> : <APill tone="orange">Sender requested</APill>}
             </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 0" }}>
