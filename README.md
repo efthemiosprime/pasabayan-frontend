@@ -39,6 +39,15 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## Hero search data (`VITE_WEBSITE_SEARCH_LIVE`)
+
+The hero "Find carriers / Find packages" search reads from `src/site/websiteSearch.js`.
+
+- `VITE_WEBSITE_SEARCH_LIVE=false` (default when unset): serves built-in mock cities and listings in the exact API shapes, with a short simulated delay. In dev, append `?searchError=422|429|500` to preview the error states.
+- `VITE_WEBSITE_SEARCH_LIVE=true`: calls `https://api.pasabayan.com/api/locations/search` for cities and same-origin `GET /api/public/website-search` for results.
+
+Set it in your shell or deployment environment at build time, e.g. `VITE_WEBSITE_SEARCH_LIVE=true npm run build`.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
