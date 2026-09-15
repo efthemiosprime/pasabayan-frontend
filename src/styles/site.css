@@ -1,0 +1,446 @@
+/* ============================================================
+   Pasabayan Design System — global entry point
+   Consumers link THIS file only. Imports below reach every
+   token file. Typography is iOS-native (SF Pro via the system
+   font stack) so no @font-face / webfont binaries are shipped.
+   ============================================================ */
+
+/* ============================================================
+   Pasabayan — Color tokens
+   Black-based brand primary, iOS system neutrals, and an
+   Airbnb-influenced extended palette used for badges & status.
+   Values are iOS light-mode resolutions of the SwiftUI
+   `Color(.systemX)` semantic colors.
+   ============================================================ */
+
+:root {
+  /* ---- Brand / Primary (black-based) ---- */
+  --primary: #000000;
+  --primary-light: #8e8e93;
+  --primary-dark: #000000;
+
+  /* ---- Secondary (gray) ---- */
+  --secondary: #8e8e93;
+  --secondary-light: #d1d1d6; /* systemGray4 */
+  --secondary-dark: #aeaeb2;  /* systemGray2 */
+
+  /* ---- iOS system grays ---- */
+  --gray-1: #8e8e93; /* systemGray  */
+  --gray-2: #aeaeb2; /* systemGray2 */
+  --gray-3: #c7c7cc; /* systemGray3 */
+  --gray-4: #d1d1d6; /* systemGray4 */
+  --gray-5: #e5e5ea; /* systemGray5 */
+  --gray-6: #f2f2f7; /* systemGray6 */
+
+  /* ---- Semantic (iOS system) ---- */
+  --success: #34c759;
+  --warning: #ff9500;
+  --error:   #ff3b30;
+  --info:    #007aff;
+
+  /* ---- Backgrounds (iOS light mode) ---- */
+  --background:            #ffffff; /* systemBackground          */
+  --background-secondary:  #f2f2f7; /* secondarySystemBackground */
+  --background-tertiary:   #ffffff; /* tertiarySystemBackground  */
+  --surface-card:          #ffffff;
+  --surface-modal:         #ffffff;
+  --screen-background:     #ffffff;
+  --overlay:               rgba(0, 0, 0, 0.30);
+
+  /* ---- Text ---- */
+  --text-primary:     #000000;
+  --text-secondary:   rgba(60, 60, 67, 0.60); /* secondaryLabel */
+  --text-tertiary:    rgba(60, 60, 67, 0.30); /* tertiaryLabel  */
+  --text-inverse:     #ffffff;
+  --text-on-primary:  #ffffff;
+  --text-on-secondary:#000000;
+
+  /* ---- Borders ---- */
+  --border:           rgba(60, 60, 67, 0.29); /* separator */
+  --border-secondary: rgba(60, 60, 67, 0.29);
+  --border-active:    #000000;
+  --border-opaque:    #c6c6c8; /* opaqueSeparator */
+
+  /* ---- Extended palette (Airbnb-influenced) ---- */
+  --blue:        #007aff;
+  --blue-lighter:#5ab0ff; /* phone-verified badge tint */
+  --purple:      #af52de;
+  --orange:      #ff9500;
+  --green:       #34c759;
+  --teal:        #00a699; /* brand teal */
+  --yellow:      #ffb400;
+  --red:         #c13515; /* brand deep red */
+  --red-soft:    #e0736b; /* unverified badge, softer than error */
+  --gold:        #ffd700;
+  --palette-gray:#8e8e93;
+
+  /* ---- Extended palette — soft tint backgrounds (10% alpha) ---- */
+  --blue-light:   rgba(0, 122, 255, 0.10);
+  --purple-light: rgba(175, 82, 222, 0.10);
+  --orange-light: rgba(255, 149, 0, 0.10);
+  --green-light:  rgba(52, 199, 89, 0.10);
+  --teal-light:   rgba(0, 166, 153, 0.10);
+  --yellow-light: rgba(255, 180, 0, 0.10);
+  --red-light:    rgba(255, 59, 48, 0.10);
+  --gold-light:   rgba(255, 215, 0, 0.10);
+  --gray-light:   #e5e5ea;
+
+  /* Semantic tint aliases */
+  --success-light: var(--green-light);
+  --warning-light: var(--orange-light);
+  --error-light:   var(--red-light);
+  --info-light:    var(--blue-light);
+
+  /* ---- Verified seal (blue, X-style) ---- */
+  --verified: #1d9bf6;
+
+  /* ---- Price emphasis (always green) ---- */
+  --price: #1aa64b;
+
+  /* ---- Role accents ---- */
+  --role-sender:        #c43ec4; /* magenta-purple */
+  --role-sender-tint:   rgba(196, 62, 196, 0.10);
+  --role-carrier:       #007aff; /* iOS blue */
+  --role-carrier-tint:  rgba(0, 122, 255, 0.10);
+
+  /* ---- Priority ---- */
+  --priority-normal:  #8e8e93;
+  --priority-urgent:  #ff3b30;
+  --priority-fragile: #ff9500;
+
+  /* ---- Match quality ---- */
+  --match: #1aa64b;
+  --match-tint: rgba(26, 166, 75, 0.10);
+
+  /* ---- Interactive ---- */
+  --button-primary:     var(--primary);
+  --button-secondary:   transparent;
+  --button-destructive: var(--error);
+  --button-disabled:    #d1d1d6;
+
+  /* ---- Booking / trip status (matches live app) ---- */
+  --trip-scheduled: #007aff;
+  --trip-active:    #34c759; /* "Active" reads green in-app */
+  --trip-completed: #34c759;
+  --trip-cancelled: #ff3b30;
+
+  /* ---- Booking / package status (matches live app) ---- */
+  --package-open:       #007aff;
+  --package-confirmed:  #007aff; /* "Booking confirmed" = blue */
+  --package-matched:    #af52de; /* purple */
+  --package-booked:     #af52de;
+  --package-picked-up:  #af52de; /* "Picked Up" = purple */
+  --package-in-transit: #af52de;
+  --package-delivered:  #34c759; /* green */
+  --package-cancelled:  #ff3b30; /* red */
+
+  /* ---- Generic status (badges) ---- */
+  --status-pending:     #ff9500; /* orange */
+  --status-in-progress: #ff9500; /* "In progress" = orange */
+  --status-confirmed:   #007aff;
+  --status-active:      #34c759;
+  --status-completed:   #34c759;
+  --status-cancelled:   #ff3b30;
+  --status-matched:     #af52de;
+  --status-picked-up:   #af52de;
+  --status-in-transit:  #af52de;
+
+  /* ---- Shadow colors ---- */
+  --shadow-light:  rgba(0, 0, 0, 0.10);
+  --shadow-medium: rgba(0, 0, 0, 0.20);
+  --shadow-dark:   rgba(0, 0, 0, 0.30);
+}
+
+/* ============================================================
+   Pasabayan — Typography tokens
+   iOS-native: SF Pro via the system font stack. Sizes follow
+   the SwiftUI scale (12 → 40pt). Weights map to SF weights.
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-system: -apple-system, BlinkMacSystemFont, system-ui,
+                 "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- Sizes (px == pt) ---- */
+  --text-2xs: 10px; /* caption small */
+  --text-xs:  12px; /* caption / fine print */
+  --text-sm:  14px; /* body small, secondary */
+  --text-md:  16px; /* body default */
+  --text-lg:  18px; /* body large, emphasis */
+  --text-xl:  20px; /* subtitle */
+  --text-2xl: 24px; /* heading 3 */
+  --text-3xl: 28px; /* heading 2 */
+  --text-4xl: 32px; /* heading 1 */
+  --text-5xl: 40px; /* display */
+  --text-nav-title: 15px; /* tight inline nav title */
+
+  /* ---- Weights ---- */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ---- Line heights ---- */
+  --leading-tight:   1.15;
+  --leading-snug:    1.25;
+  --leading-normal:  1.4;
+  --leading-relaxed: 1.5;
+
+  /* ---- Letter spacing (SF optical) ---- */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+
+  /* ---- Semantic roles ---- */
+  --role-h1: var(--weight-bold)     var(--text-4xl)/var(--leading-tight) var(--font-system);
+  --role-h2: var(--weight-bold)     var(--text-3xl)/var(--leading-tight) var(--font-system);
+  --role-h3: var(--weight-semibold) var(--text-2xl)/var(--leading-snug)  var(--font-system);
+  --role-h4: var(--weight-semibold) var(--text-xl)/var(--leading-snug)   var(--font-system);
+  --role-h5: var(--weight-medium)   var(--text-lg)/var(--leading-snug)   var(--font-system);
+  --role-h6: var(--weight-medium)   var(--text-md)/var(--leading-snug)   var(--font-system);
+  --role-body:        var(--weight-regular) var(--text-md)/var(--leading-normal)  var(--font-system);
+  --role-body-large:  var(--weight-regular) var(--text-lg)/var(--leading-normal)  var(--font-system);
+  --role-body-small:  var(--weight-regular) var(--text-sm)/var(--leading-normal)  var(--font-system);
+  --role-caption:     var(--weight-regular) var(--text-xs)/var(--leading-snug)    var(--font-system);
+  --role-button:      var(--weight-semibold) var(--text-md)/1 var(--font-system);
+}
+
+/* ============================================================
+   Pasabayan — Spacing tokens
+   4pt grid. Base unit = 4px. Plus semantic spacing aliases.
+   ============================================================ */
+
+:root {
+  --space-xs:    4px;
+  --space-sm:    8px;
+  --space-md:    12px;
+  --space-lg:    16px;
+  --space-xl:    20px;
+  --space-2xl:   24px;
+  --space-3xl:   32px;
+  --space-4xl:   40px;
+  --space-5xl:   48px;
+
+  /* Semantic spacing */
+  --space-card-padding:    var(--space-lg);  /* 16 */
+  --space-section:         var(--space-2xl); /* 24 */
+  --space-screen-padding:  var(--space-lg);  /* 16 */
+  --space-wizard-shell:    var(--space-5xl); /* 48 */
+  --space-button-padding:  var(--space-md);  /* 12 */
+  --space-item:            var(--space-sm);  /* 8  */
+  --space-icon-text:       var(--space-sm);  /* 8  */
+  --space-list-row:        var(--space-sm);  /* 8  */
+  --space-form-field:      var(--space-xl);  /* 20 */
+}
+
+/* ============================================================
+   Pasabayan — Corner radius tokens
+   ============================================================ */
+
+:root {
+  --radius-xs:  4px;  /* badges, small elements */
+  --radius-sm:  8px;  /* buttons, inputs */
+  --radius-md:  12px; /* cards */
+  --radius-lg:  16px; /* large cards, modals */
+  --radius-xl:  20px; /* special cases */
+  --radius-2xl: 24px; /* very large / large avatars */
+  --radius-capsule: 999px;
+
+  /* Semantic — tuned to the live app (softer, rounder than the original spec) */
+  --radius-button: var(--radius-md); /* 12 — small/compact controls */
+  --radius-cta:    var(--radius-lg); /* 16 — full-width primary CTAs   */
+  --radius-card:   var(--radius-lg); /* 16 — cards read rounder in-app */
+  --radius-panel:  14px;             /* nested gray sub-panels         */
+  --radius-modal:  var(--radius-xl); /* 20 — sheets                    */
+  --radius-badge:  var(--radius-capsule); /* status pills are capsules  */
+  --radius-chip:   var(--radius-capsule);  /* filter chips are capsules */
+  --radius-input:  var(--radius-md); /* 12 */
+  --radius-avatar: var(--radius-2xl);/* 24 */
+}
+
+/* ============================================================
+   Pasabayan — Elevation / shadow tokens
+   The system ships FLAT by default (cards use 1px borders, no
+   shadow). The shadow scale exists for floating/modal surfaces.
+   ============================================================ */
+
+:root {
+  --shadow-none: none;
+  --shadow-xs:  0 1px 1px  var(--shadow-light);
+  --shadow-sm:  0 1px 2px  var(--shadow-light);
+  --shadow-md:  0 2px 4px  var(--shadow-light);
+  --shadow-lg:  0 4px 8px  var(--shadow-medium);
+  --shadow-xl:  0 6px 12px var(--shadow-medium);
+  --shadow-2xl: 0 8px 16px var(--shadow-dark);
+
+  /* Semantic */
+  --shadow-button:   var(--shadow-sm);
+  --shadow-card:     var(--shadow-md);
+  --shadow-modal:    var(--shadow-lg);
+  --shadow-floating: var(--shadow-xl);
+}
+
+/* ============================================================
+   Pasabayan — Border tokens
+   Unified 1px border system. Card default is FLAT: 1px border,
+   no shadow. Border color matches the iOS separator.
+   ============================================================ */
+
+:root {
+  --border-width: 1px;
+  --border-color: var(--border);
+
+  /* Component-specific radii reuse the radius scale */
+  --border-radius-default: var(--radius-sm); /* 8  */
+  --border-radius-card:    var(--radius-md); /* 12 */
+  --border-radius-button:  var(--radius-sm); /* 8  */
+  --border-radius-badge:   var(--radius-xs); /* 4  */
+  --border-radius-input:   var(--radius-sm); /* 8  */
+
+  /* Convenience composite */
+  --border-hairline: var(--border-width) solid var(--border-color);
+}
+
+/* ============================================================
+   Pasabayan — Layout tokens
+   Component dimensions and constraints. Tuned for iPhone.
+   ============================================================ */
+
+:root {
+  /* Constraints */
+  --max-content-width: 428px; /* iPhone 14 Pro Max width */
+  --max-card-width:    400px;
+
+  /* Buttons */
+  --button-height:       48px;
+  --button-height-sm:    36px;
+  --button-height-lg:    56px;
+
+  /* Inputs */
+  --input-height: 48px;
+
+  /* Avatars */
+  --avatar-sm: 32px;
+  --avatar-md: 48px;
+  --avatar-lg: 64px;
+
+  /* Icons */
+  --icon-sm: 16px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+
+  /* Grid */
+  --grid-columns: 12; /* @kind other */
+  --grid-gutter:  var(--space-md);
+
+  /* iOS chrome */
+  --tab-bar-height: 49px;
+  --nav-bar-height: 44px;
+  --status-bar-height: 54px;
+}
+
+/* ============================================================
+   Pasabayan — Motion tokens
+   iOS easeInOut durations + spring metaphors.
+   ============================================================ */
+
+:root {
+  --motion-fast:   0.2s; /* @kind other */
+  --motion-medium: 0.3s; /* @kind other */
+  --motion-slow:   0.5s; /* @kind other */
+
+  --ease-standard: cubic-bezier(0.42, 0, 0.58, 1); /* @kind other */ /* easeInOut */
+
+  /* Semantic durations */
+  --motion-button:     var(--motion-fast);
+  --motion-modal:      var(--motion-medium);
+  --motion-transition: var(--motion-slow);
+
+  /* Spring metaphors (approximated as cubic-beziers) */
+  --ease-spring:        cubic-bezier(0.34, 1.2, 0.64, 1); /* @kind other */
+  --ease-spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+}
+
+
+/* ============================================================
+   Site globals (from the redesign)
+   ============================================================ */
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-system);color:var(--text-primary);background:var(--background);-webkit-font-smoothing:antialiased}
+a{color:var(--info);text-decoration:none}
+a:hover{color:var(--info);text-decoration:underline}
+.navLinks span{white-space:nowrap}@media (max-width:1040px){.navLinks{display:none!important}}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.eyebrow{font:var(--weight-medium) 12px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary)}
+.h1{font-weight:700;font-size:clamp(38px,5.6vw,76px);line-height:1.02;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.h2{font-weight:700;font-size:clamp(28px,3.4vw,46px);line-height:1.06;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.h3{font-weight:600;font-size:clamp(20px,2vw,26px);line-height:1.2;letter-spacing:-.02em;margin:0}
+.lede{font-size:clamp(16px,1.35vw,20px);line-height:1.5;color:var(--text-secondary);margin:0;text-wrap:pretty}
+.sec{padding-block:clamp(64px,8vw,120px)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(24px,4vw,64px)}
+.journey{display:grid;grid-template-columns:1fr minmax(320px,440px);gap:clamp(24px,5vw,72px);align-items:center;height:100%}
+@media (max-width:1000px){.heroGrid{grid-template-columns:1fr!important}}
+.card{background:var(--surface-card);border:1px solid var(--border);border-radius:16px}
+.btnk{display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 24px;border-radius:14px;border:none;background:var(--primary);color:#fff;font:var(--weight-semibold) 16px var(--font-system);cursor:pointer}
+.btnk{white-space:nowrap}.btnk:hover{opacity:.86}
+.btng{display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 24px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--text-primary);font:var(--weight-semibold) 16px var(--font-system);cursor:pointer}
+.btng:hover{background:var(--gray-6)}
+details{border-top:1px solid var(--border);padding:20px 0}
+details summary{cursor:pointer;list-style:none;font:var(--weight-semibold) 18px var(--font-system);display:flex;justify-content:space-between;gap:16px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";color:var(--text-secondary);font-weight:400}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;color:var(--text-secondary);line-height:1.55;max-width:72ch}
+input[type=range]{accent-color:var(--primary)}
+
+/* ---- Additions for the production page ---- */
+html{scroll-behavior:smooth}
+:root{--site-nav-h:68px}
+@media (max-width:640px){.searchDivider{display:none}}
+[id]{scroll-margin-top:76px}
+a.plain,a.plain:hover{text-decoration:none}
+a.btnk,a.btnk:hover{color:#fff}
+.navLink{font:var(--weight-medium) 14.5px var(--font-system);color:var(--text-secondary)}
+.navLink:hover{color:var(--text-primary)}
+.btnk:disabled{opacity:.6;cursor:default}
+.notifyInput::placeholder{color:rgba(255,255,255,.5)}
+:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+
+/* ---- Hero search ---- */
+.srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.segTab{height:36px;padding:0 16px;border:none;border-radius:999px;background:transparent;color:var(--text-secondary);font:var(--weight-semibold) 14px var(--font-system);cursor:pointer;white-space:nowrap}
+.segTab[aria-selected=true]{background:var(--background);color:var(--text-primary);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.heroSearchWrap{container-type:inline-size;position:relative;z-index:5}
+.heroSearch{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1.25fr) minmax(172px,1fr) auto;align-items:center;border:1px solid var(--border);border-radius:18px;padding:6px;background:var(--background);box-shadow:0 12px 32px -20px rgba(0,0,0,.35)}
+.searchField{position:relative;min-width:0;padding:12px 16px;border-radius:12px}
+.searchField:focus-within{background:var(--gray-6)}
+.searchField + .searchField::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:var(--border)}
+.searchField:focus-within::before,.searchField:focus-within + .searchField::before{opacity:0}
+.searchInput{display:block;width:100%;min-width:0;min-height:24px;margin-top:3px;padding:0;border:none;background:transparent;color:var(--text-primary);font:var(--weight-semibold) 17px var(--font-system);-webkit-appearance:none;appearance:none}
+.searchInput:focus-visible{outline:none}
+.searchInput::placeholder{color:var(--text-tertiary)}
+.searchInput::-webkit-date-and-time-value{text-align:left}
+.searchOption[aria-selected=true]{background:var(--gray-6)}
+.heroSearchBtn{margin:2px;justify-content:center}
+/* Under ~780px the single row can't show a full "Quebec City, QC": cities share row 1, date + button row 2. */
+@container (max-width:779px){
+  .heroSearch{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .searchField.sfWhen::before{left:12px;right:12px;top:0;bottom:auto;width:auto;height:1px}
+}
+@container (max-width:420px){
+  .heroSearch{grid-template-columns:minmax(0,1fr)}
+  .searchField + .searchField::before,.searchField.sfWhen::before{left:12px;right:12px;top:0;bottom:auto;width:auto;height:1px}
+  .heroSearchBtn{margin-top:6px}
+}
+@media (max-width:640px){
+  .heroSearch{grid-template-columns:minmax(0,1fr)}
+  .searchField + .searchField::before,.searchField.sfWhen::before{left:12px;right:12px;top:0;bottom:auto;width:auto;height:1px}
+  .heroSearchBtn{margin-top:6px}
+}
+.resultsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:12px}
+@keyframes skelPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.skel{background:var(--gray-6);border-radius:8px;animation:skelPulse 1.4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

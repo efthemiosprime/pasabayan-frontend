@@ -10,10 +10,12 @@
     "sync:snapflow": "cd ../../snap-flow && npm run build && rm -rf ../pasabayan/pasabayan-frontend/public/snapflow && mkdir -p ../pasabayan/pasabayan-frontend/public/snapflow && cp -r dist/* ../pasabayan/pasabayan-frontend/public/snapflow/"
   },
   "devDependencies": {
-    "sass": "^1.69.5",
+    "@vitejs/plugin-react": "^4.7.0",
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "three": "^0.182.0"
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
