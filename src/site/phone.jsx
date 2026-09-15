@@ -103,11 +103,16 @@ export function usePhoneScale(max = 1) {
   const [s, setS] = useState(max);
   useEffect(() => {
     const on = () => {
+      // Stacked (phone/tablet) layouts: the phone scrolls in normal flow, so only the
+      // column width matters. Fitting it to the viewport height as well shrank it to
+      // ~62% of the screen on phones, whose visible height is ~650px with browser bars.
+      if (window.matchMedia(NARROW_QUERY).matches) {
+        setS(Math.min(1, (window.innerWidth * 0.8) / 390)); // 80% of the screen width
+        return;
+      }
+      // Side-by-side layouts share the width with copy and must fit one screen.
       const byHeight = (window.innerHeight - 140) / 844;
-      // Stacked layouts give the phone the column's width; side-by-side layouts share it with copy.
-      const byWidth = window.matchMedia(NARROW_QUERY).matches
-        ? ((Math.min(window.innerWidth, 560) - 40) * 0.8) / 390
-        : (Math.min(window.innerWidth, 1240) * 0.42) / 390;
+      const byWidth = (Math.min(window.innerWidth, 1240) * 0.42) / 390;
       setS(Math.min(max, byHeight, byWidth));
     };
     on(); window.addEventListener("resize", on);
