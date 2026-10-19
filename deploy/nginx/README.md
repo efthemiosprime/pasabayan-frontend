@@ -75,3 +75,37 @@ and the site never used it — the waitlist and city search call
 `location /api` relay would let anyone reach every public API GET through this
 server, all appearing to come from its one IP (sharing rate limits, and
 bypassing the API's DDoS guard once that IP is whitelisted).
+
+## Share previews (`/app/trips/<n>`, `/app/packages/<n>`)
+
+Shared trip and package links (`https://pasabayan.com/app/trips/<n>?s=<token>`) must
+show a preview card to people without the app. The API renders that page
+(pasabayan-api B51, phase 51D; iOS ios#1349), so this server relays exactly those two
+path shapes to `https://api.pasabayan.com`. Every other `/app/*` path stays on the SPA,
+and the AASA keeps claiming `/app/*` for the iOS app. Added on the server 2026-10-19.
+
+- **Regex, not a prefix.** `location ~ ^/app/(trips|packages)/[0-9]+/?$` wins over
+  `location /`. Never widen it to `location /app`: that would hand the whole `/app/*`
+  space (including the SPA's own pages) to the API.
+- **No relay key, no realip snippet.** The preview is a public page; the block only
+  strips the visitor's identity, as the hero search relay does.
+- **GET only.** `limit_except GET` makes anything else a 403.
+- **It depends on the API server too.** On `api.pasabayan.com`, nginx sends
+  `location /app` to Reverb (WebSockets), so the API server carries its own carve-out
+  for these two shapes (pasabayan-api `docs/B51_SHAREABLE_LISTING_LINKS_SPEC.md` §4.7).
+  Without it this relay gets Reverb's bare `Not found.`.
+- Every preview reaches the API from this server's IP, so the `DDOS_WHITELIST_IPS`
+  entry for the hero search relay (above) covers previews too.
+
+Check after a reload:
+
+```bash
+curl -s -D- -o /dev/null https://pasabayan.com/app/trips/1 | grep -iE "^HTTP|x-robots-tag|set-cookie"
+# HTTP 200, x-robots-tag: noindex..., and no set-cookie
+curl -s https://pasabayan.com/app/matches/1 | grep -o "<title>[^<]*"
+# still the SPA's title (the regex didn't widen)
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://pasabayan.com/app/trips/1
+# 403 (limit_except)
+```
+
+All three passed on production on 2026-10-19.
